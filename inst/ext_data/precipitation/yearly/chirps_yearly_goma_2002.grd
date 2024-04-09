@@ -1,0 +1,19 @@
+[general]
+[georeference]
+nrows=22
+ncols=23
+xmin=28.600003108382225
+ymin=-2.20000077784061432
+xmax=29.7500031255185604
+ymax=-1.10000076144933701
+projection=+proj=longlat +datum=WGS84 +no_defs
+[data]
+datatype=FLT4S
+nodatavalue=nan
+byteorder=little
+nbands=1
+minvalue=-2.44577951224424521e+38
+maxvalue=1.2228897561221226e+38
+categorical=FALSE
+[description]
+layername=X2002

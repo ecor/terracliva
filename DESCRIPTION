@@ -1,0 +1,16 @@
+Package: terracliva
+License: GPL (>= 3)
+Title: Climate Vatriability tools 
+Type: Package
+Authors@R: c(person(given="Emanuele",family="Cordano",role = c("aut","cre"),email = "emanuele.cordano@gmail.com"))
+Description: Climate Variability Analysis with spatio-temporal gridded coverages
+Version: 0.0.2
+Date: 2024-02-29
+Repository: CRAN
+Depends: lmomPi,terra,magrittr,lmom
+Imports: lubridate,extRemes
+Suggests: 
+RoxygenNote: 7.2.3
+NeedsCompilation: no
+Packaged: 2017-11-28 15:32:55 UTC; cordaem
+Date/Publication: 2017-11-29 14:31:45 UTC
