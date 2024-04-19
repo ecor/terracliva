@@ -55,6 +55,7 @@ prec <- as.numeric(dataset_daily[100])
 timeprec <- time(dataset_daily)
 
 out <- dryspellcliva(prec,timeprec)
+out_df <- dryspellcliva(prec,timeprec,fun_aggr=NULL)
 out10 <- dryspellcliva(prec,timeprec,valmin=10)
 
 precb <- prec

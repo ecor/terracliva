@@ -5,7 +5,7 @@ NULL
 #'
 #' @param x a \code{SpatRast-Class} object
 #' @param distrib probability distribution function. See \code{\link{pel}}
-#' @param index,fun,... further arguments passed to \code{\link{apprast}}
+#' @param index,fun,... further arguments passed to \code{\link{apprast}} and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default). 
 #' 
 #' @importFrom magrittr  %>% 
 #' @importFrom terra app nlyr tapp time

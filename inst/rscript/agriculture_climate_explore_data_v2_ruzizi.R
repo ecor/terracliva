@@ -187,8 +187,8 @@ out6 <- out5 %>% filter(!is.na(drys_value)) ### ,variable %in% c("maize","rice")
 #gg <- ggplot(+geom_point(aes(x=drys_value,y=value,color=variable,group=variable),data=out6)+theme_bw()
 
 breaks=c(0,10,20,30,Inf)
-breaks=c(0,15,25,Inf)
-breaks= c(0,15,Inf)
+#breaks=c(0,15,25,Inf)
+#breaks= c(0,15,Inf)
 out7 <- out6 %>% mutate(drys_class=cut(drys_value,breaks))
 ### https://ggplot2.tidyverse.org/reference/geom_boxplot.html
 
