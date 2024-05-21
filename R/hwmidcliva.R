@@ -106,11 +106,21 @@ hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,sta
     Tref <- -Tref
     Temp <- -Temp
     
-    }
+  }
+  ## add ec 20240521
+  if (all(is.na(Tref)) | all(is.na(Temp))) {
+    Tref[] <- 0
+    Temp[] <- 0
+    cond_na <- TRUE
+  } else {
+    cond_na <- FALSE
+  }
+  ## end add ec 20240521
   o <- hwmid(yTref=yTref,Tref=Tref,yTemp=yTemp,Temp)
   ### PROCESS HWMID 
   if (return_vector) {
-    o <- o$hwmid[,1] 
+    o <- o$hwmid[,1]
+    if (cond_na) o[] <- as.numeric(NA)
     names(o) <- yTemp+1:length(o)-1
   }
   ###

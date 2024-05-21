@@ -4,8 +4,8 @@ Title: Climate Vatriability tools
 Type: Package
 Authors@R: c(person(given="Emanuele",family="Cordano",role = c("aut","cre"),email = "emanuele.cordano@gmail.com"))
 Description: Climate Variability Analysis with spatio-temporal gridded coverages
-Version: 0.0.3
-Date: 2024-04-15
+Version: 0.0.4
+Date: 2024-05-21
 Repository: CRAN
 Depends: lmomPi,terra,magrittr,lmom
 Imports: lubridate,extRemes

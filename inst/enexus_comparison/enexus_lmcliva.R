@@ -182,5 +182,7 @@ plot(min(exc_difference))
 ###################
 ###################
 ###################
-
+gg <- ggplot()+geom_point(aes(x=out_monthly[[names(out_exc_enexus)]][],y=out_exc_enexus[]))
+gg <- gg+theme_bw()+geom_abline()
+gg 
 

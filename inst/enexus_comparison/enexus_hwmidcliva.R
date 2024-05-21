@@ -25,7 +25,11 @@ library(lubridate)
 library(terra)
 library(enexusClimate)
 library(raster)
-
+library(rasterList)
+library(extRemes)
+library(RColorBrewer)
+library(testthat)
+source("/home/ecor/local/rpackages/jrc/enexusClimate/R/HeatWaves.R")
 
 
 years <- 1983:2016
@@ -61,4 +65,32 @@ end_date_ref <- as.Date(sprintf("%d-12-31",end_year_ref))
 hwmi_thresh=4
 
 
-cchw <- system.time( hw <- HeatWaves(startDir=startDir, inputFile=inputFile, shp_utm=spatial_v,start_date=as.character(start_date),end_date=as.character(end_date), hwmi_thresh=hwmi_thresh,KtoC=TRUE,start_year_ref=start_year_ref,end_year_ref=end_year_ref))
+cchw <- system.time( hw <- HeatWaves(startDir=startDir, inputFile=inputFile, shp_utm=spatial_v,start_date=as.character(start_date),end_date=as.character(end_date), hwmi_thresh=hwmi_thresh,KtoC=FALSE,start_year_ref=start_year_ref,end_year_ref=end_year_ref,remove0229=FALSE))
+
+
+####
+yys <- sort(unique(year(time(tmax_dataset_daily))))
+
+o_hw_enexus_file <- sprintf('%s/Annual Maps/HWMI_%03d.tif',startDir,yys)
+o_hw_enexus <- rast(o_hw_enexus_file)
+names(o_hw_enexus) <- str_replace(names(o_hw_enexus),"HWMI_","")
+
+###########
+###########
+library(ggplot2)
+
+
+gg <- ggplot()+geom_point(aes(x=o_hw[],y=o_hw_enexus[[names(o_hw)]][]))
+gg <- gg+theme_bw()+geom_abline()
+gg 
+plot(o_hw[],o_hw_enexus[])
+
+tolerance <- 10^-5
+exc_difference <- o_hw-o_hw_enexus[[names(o_hw)]]
+v <- values(exc_difference)
+
+e <- expect_equal(v,v*0,tolerance=tolerance)
+
+
+
+
