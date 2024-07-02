@@ -10,7 +10,7 @@ dryspellcliva(
   valmin = 1,
   months = c(12, 1, 2, 3),
   start_day = 1,
-  fun_aggr = max,
+  fun_aggr = "max",
   thres_value = 150,
   set_thres_value_as_na = FALSE,
   ...
@@ -27,9 +27,11 @@ dryspellcliva(
 
 \item{start_day}{starting day of the month. It can be different from 1.}
 
-\item{fun_aggr}{aggregation function}
+\item{fun_aggr}{character aggregation function name.}
 
 \item{thres_value}{threshold value as a maximum length in days for a dry spell.}
+
+\item{set_thres_value_as_na}{logical it sets \code{thres_value} (if possible) when the value is previously not assigned}
 
 \item{...}{further arguments}
 }
@@ -60,9 +62,9 @@ out10 <- dryspellcliva(prec,timeprec,valmin=10)
 
 precb <- prec
 precb[1:500] <- 10
-outb <- dryspellcliva(precb,timeprec,valmin=10)
-outb <- dryspellcliva(precb,timeprec,valmin=10)
-
+outb_max <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="max")
+outb_mean <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="mean")
+outb_several <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"))
 
 
 

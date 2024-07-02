@@ -9,7 +9,7 @@ NULL
 #'
 #'
 #'
-#'
+#' @seealso \code{\link{dryspellapprast}}
 #'
 #' @export
 #'
@@ -40,9 +40,12 @@ NULL
 #' dataset_daily_n[100][1:500] <- 10
 #' out <- dryspellapprast(dataset_daily_n,valmin=2)
 #' 
+#' out_several  <- dryspellapprast(dataset_daily_n,valmin=2,fun_aggr=c("q25","median","mean","q75","q90","max"))
 #' 
-#' ## out10 TO BE TESTED # put a  a thresholds!!!!
-#' @seealso \code{\link{dryspellapprast}}
+#' 
+#' 
+## out10 TO BE TESTED # put a  a thresholds!!!!
+
 
 dryspellapprast <- function(x,timex=time(x),fun=dryspellcliva,index=1,...){
   

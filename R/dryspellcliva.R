@@ -7,13 +7,14 @@ NULL
 #' @param valmin minimum value for rainfall  
 #' @param months months of the rainy season  
 #' @param start_day starting day of the month. It can be different from 1.  
-#' @param fun_aggr aggregation function
+#' @param fun_aggr character aggregation function name. 
 #' @param thres_value threshold value as a maximum length in days for a dry spell. 
+#' @param set_thres_value_as_na logical it sets \code{thres_value} (if possible) when the value is previously not assigned
 #' @param ... further arguments
 #'
 #'
 #'
-#'
+#' @importFrom stringr str_split
 #'
 #' @export
 #'
@@ -44,9 +45,9 @@ NULL
 #' 
 #' precb <- prec
 #' precb[1:500] <- 10
-#' outb <- dryspellcliva(precb,timeprec,valmin=10)
-#' outb <- dryspellcliva(precb,timeprec,valmin=10)
-#' 
+#' outb_max <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="max")
+#' outb_mean <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="mean")
+#' outb_several <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"))
 #' 
 #' 
 #' 
@@ -66,7 +67,7 @@ NULL
 #' 
 ###
 
-dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_aggr=max,thres_value=150,set_thres_value_as_na=FALSE,...) {
+dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_aggr="max",thres_value=150,set_thres_value_as_na=FALSE,...) {
   
   
   
@@ -111,15 +112,43 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_ag
   out$spell_amount <- as.numeric(vals[ilens])
   out$monthxn <- as.numeric(sapply(X=drys_time[ilens],FUN=function(r,d=start_day){terracliva::monthx(r[1],start_day=d)})) 
   out$yearx <- as.numeric(sapply(X=drys_time[ilens],FUN=function(r,m=months[1],d=start_day){yearx(r[1],start_month=m,start_day=d)})) #%>% as.Date()
- 
+  out001 <<- out
+  
   out <- out[which(out$monthxn %in% months),]
   
    ####out$spell_end_date <- lapply(X=drys_time,FUN=function(r){format(r[length(r)])}) #%>% as.Date()
   ###if (is.na(fun_aggr)) fun_aggr <- NULL
-  
+  out002 <<- out
   if (!is.null(fun_aggr))  {
     
-    if (is.character(fun_aggr)) fun_aggr <- get(fun_aggr)
+    ###
+    ##fun_aggrs <- fun_aggr
+    
+    outf <- list()
+    year_u <- sort(unique(yearx(timex,start_day=start_day,start_month=months[1])))  ##min(out$yearx):max(out$yearx)
+    out3 <- array(as.numeric(NA),length(year_u))
+    names(out3) <- year_u
+    for (itf in fun_aggr) {
+      
+      out2 <- tapply(out$spell_length,FUN=get(itf),INDEX=out$yearx,simplify=TRUE,...)
+      out3a <- out3
+      out3a[names(out2)] <- out2[names(out2)]
+      out3aa <<- out3a
+      out2aa <<- out2
+      out3a <- out2[as.character(sort(as.numeric(names(out3a))))]
+      out3a[set_thres_value_as_na & is.na(out3a)] <-  thres_value
+      names(out3a) <- paste(itf,names(out3a),sep="_")
+      outf[[itf]] <- out3a
+      
+    } 
+    
+    ##
+    
+   
+    
+    out <- unlist(outf)
+    names(out) <- sapply(str_split(names(out),"[.]"),FUN=function(x){x[[2]]})
+     ## if (is.character(itf)) itf <- get(itf)
     
     #####
     
@@ -139,20 +168,23 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_ag
     # 23   22   29   26   21   36   19   13   30   22   18   45   22   29   13   27   51   26   26   19   17   18   17   25   27 
     # 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 
     # 25   19   18   40   21   26   45   26   25   38   32   31   28   19   46    6 
-    out2 <- tapply(out$spell_length,FUN=fun_aggr,INDEX=out$yearx,simplify=TRUE,...)
-    #####
-    year_u <- sort(unique(yearx(timex,start_day=start_day,start_month=months[1])))  ##min(out$yearx):max(out$yearx)
-    out3 <- array(as.numeric(NA),length(year_u))
-    names(out3) <- year_u
-    out3[names(out2)] <- out2[names(out2)]
-    #out2[as.character(year_u[which(!(as.character(year_u) %in% names(out2)))])] <- as.numeric(NA)
-    out2 <- out3                
-    out2 <- out2[as.character(sort(as.numeric(names(out2))))]
-    ###
     
-    ###
-    out2[set_thres_value_as_na & is.na(out2)] <-  thres_value
-    out <- out2
+    
+    #   out2 <- tapply(out$spell_length,FUN=fun_aggr,INDEX=out$yearx,simplify=TRUE,...)
+    # #####
+    #   year_u <- sort(unique(yearx(timex,start_day=start_day,start_month=months[1])))  ##min(out$yearx):max(out$yearx)
+    #   out3 <- array(as.numeric(NA),length(year_u))
+    #   names(out3) <- year_u
+    #   out3[names(out2)] <- out2[names(out2)]
+    # #out2[as.character(year_u[which(!(as.character(year_u) %in% names(out2)))])] <- as.numeric(NA)
+    #   out2 <- out3                
+    #   out2 <- out2[as.character(sort(as.numeric(names(out2))))]
+    # ###
+    # 
+    # ###
+    #   out2[set_thres_value_as_na & is.na(out2)] <-  thres_value
+    #   out[[]] <- out2
+    
     out_cliva <<- out
     ###print(out)
   }
