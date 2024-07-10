@@ -9,10 +9,13 @@ dryspellcliva(
   timex,
   valmin = 1,
   months = c(12, 1, 2, 3),
+  dryspell_starts_in_months = TRUE,
+  dryspell_ends_in_months = FALSE,
   start_day = 1,
   fun_aggr = "max",
   thres_value = 150,
   set_thres_value_as_na = FALSE,
+  min_dry_spell_length = 3,
   ...
 )
 }
@@ -25,6 +28,10 @@ dryspellcliva(
 
 \item{months}{months of the rainy season}
 
+\item{dryspell_starts_in_months}{logical if \code{TRUE} dry spell starting on a date within the selected \code{months} are considered}
+
+\item{dryspell_ends_in_months}{logical if \code{TRUE} dry spell ending on a date within the selected \code{months} are considered}
+
 \item{start_day}{starting day of the month. It can be different from 1.}
 
 \item{fun_aggr}{character aggregation function name.}
@@ -32,6 +39,8 @@ dryspellcliva(
 \item{thres_value}{threshold value as a maximum length in days for a dry spell.}
 
 \item{set_thres_value_as_na}{logical it sets \code{thres_value} (if possible) when the value is previously not assigned}
+
+\item{min_dry_spell_length}{minimum length (number of days) of a dry spell in order to be taken in consideration. Default is 3.}
 
 \item{...}{further arguments}
 }

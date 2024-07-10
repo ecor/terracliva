@@ -8,7 +8,7 @@ library(rasterVis)
 source("~/local/rpackages/jrc/enexusClimate/R/AnnualDrySpells.R", echo=TRUE)
 source("~/local/rpackages/jrc/enexusClimate/R/dateCheck.R", echo=TRUE)
 
-years <- 1982:2023
+years <- 1982:2022
 dataset_path <- "/home/ecor/local/rpackages/jrc/terracliva/inst/ext_data/precipitation"
 dataset_path <- system.file("ext_data/precipitation",package="terracliva")
 dataset_daily <- "%s/daily/chirps_daily_goma_%04d.grd" %>% sprintf(dataset_path,years) %>% rast()
@@ -17,13 +17,13 @@ aggr_fun_suffixes = c("drySpellCount_003_010_days","drySpellCount_010_021_days",
 
 filename = '/home/ecor/local/rpackages/jrc/terracliva_material/outcomes/dryspell/goma_dryspell_terracliva.tif'
 cond <- file.exists(filename)
-cond <- FALSE
+##cond <- FALSE
 
 cc <- system.time({
   if (cond) {
     out <- rast(filename)
   } else {
-    out <- dryspellapprast(dataset_daily,valmin=1,months=months,fun_aggr=aggr_fun_suffixes,filename=filename,overwrite=TRUE)
+    out <- dryspellapprast(dataset_daily,valmin=1,months=months,fun_aggr=aggr_fun_suffixes,dryspell_starts_in_months=TRUE,dryspell_ends_in_months=TRUE,filename=filename,overwrite=TRUE)
   }
 
 })
@@ -62,12 +62,25 @@ nn <- intersect(names(out),names(out2a))
 out_terracliva  <- out[[nn]]
 out_enexus <- out2a[[nn]]
 ## nnf index for aggr fun 
-nnf <- str_split(nn,"_") %>% sapply(FUN=function(x){x[[1]]})
+
+
+dout <- out_terracliva-out_enexus
+
+dout_3857 <- project(dout,y="epsg:3857",method="near")
+
+plet(dout_3857,y=names(dout_3857))
+
+stop("HERE")
+
+
+nnf <- str_split(nn,"_") %>% lapply(FUN=function(x){x[-length(x)]}) %>%  sapply(FUN=paste,collapse="_")
 
 de_out <- out_terracliva-out_enexus
 de_out_max <- tapp(de_out,fun=max,index=nnf)
 de_out_min <- tapp(de_out,fun=min,index=nnf)
 ###
 
-regress_out_terracliva <- tapp(out_terracliva,fun=terracliva::regress,index=nnf)
+de_out_max <- tapp(out_terracliva,fun=terracliva::regress,index=nnf)
 regress_out_enexus <- tapp(out_enexus,fun=terracliva::regress,index=nnf)
+
+uu <- regress_out_terracliva-regress_out_enexus

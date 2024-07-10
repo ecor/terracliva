@@ -29,7 +29,7 @@ library(sf)
 library(raster)
 library(enexusClimate)
 library(testthat)
-
+library(ggplot2)
 tolerance <- 10^-5
 years <- 1982:2023
 ##dataset_path <- "/home/ecor/local/rpackages/jrc/terracliva/inst/ext_data/precipitation"
@@ -37,7 +37,7 @@ spatial_dataset_path <- system.file("ext_data/OSM_Goma_quartiers_210527.shp",pac
 precipitation_dataset_path <- system.file("ext_data/precipitation",package="terracliva")                               
                                
 precipitation_dataset_monthly <- "%s/monthly/chirps_monthly_goma_%04d.grd" %>% sprintf(precipitation_dataset_path,years) %>% rast()
-time(precipitation_dataset_monthly) <-  names(precipitation_dataset_monthly) %>% paste0("_01") %>% as.Date(format="X%Y_%m_%d")
+terra::time(precipitation_dataset_monthly) <-  names(precipitation_dataset_monthly) %>% paste0("_01") %>% as.Date(format="X%Y_%m_%d")
 
 distrib <- "pe3"
 rt_years = c(2,5,10,20,50)

@@ -29,7 +29,7 @@ library(rasterList)
 library(extRemes)
 library(RColorBrewer)
 library(testthat)
-source("/home/ecor/local/rpackages/jrc/enexusClimate/R/HeatWaves.R")
+###source("/home/ecor/local/rpackages/jrc/enexusClimate/R/HeatWaves.R")
 
 
 years <- 1983:2016
@@ -78,6 +78,8 @@ names(o_hw_enexus) <- str_replace(names(o_hw_enexus),"HWMI_","")
 ###########
 ###########
 library(ggplot2)
+
+
 
 
 gg <- ggplot()+geom_point(aes(x=o_hw[],y=o_hw_enexus[[names(o_hw)]][]))

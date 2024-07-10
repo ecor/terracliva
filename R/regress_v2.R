@@ -28,7 +28,7 @@ NULL
 #'
 
 
-regress <- function(x,time=time,signif=0.1) {  
+regress <- function(x,time=(1:length(x))-1,signif=0.1) {  
   
   if (all(is.na(x))) {
     x <- array(-0.0001,length(x))

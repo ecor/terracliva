@@ -4,7 +4,7 @@
 \alias{regress}
 \title{Correlation and Mann-Kendall correlation test}
 \usage{
-regress(x, time = time, signif = 0.1)
+regress(x, time = (1:length(x)) - 1, signif = 0.1)
 }
 \arguments{
 \item{x}{time series (vector)}

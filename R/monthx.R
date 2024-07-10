@@ -31,7 +31,8 @@ monthx <- function(x,start_day=1) { ## TO DO
   yr <- year(x)
   start_date <- sprintf("%04d-%02d-%02d",yr,mr,start_day)
   out <- mr
-  out[x<start_date] <- mr[x<start_date]-1
+  im <- which(x<start_date)
+  out[im] <- mr[im]-1
   
   out[out==0] <- 12
   

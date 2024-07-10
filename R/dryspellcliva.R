@@ -10,12 +10,17 @@ NULL
 #' @param fun_aggr character aggregation function name. 
 #' @param thres_value threshold value as a maximum length in days for a dry spell. 
 #' @param set_thres_value_as_na logical it sets \code{thres_value} (if possible) when the value is previously not assigned
-#' @param ... further arguments
+#' @param dryspell_starts_in_months logical if \code{TRUE} dry spell starting on a date within the selected \code{months} are considered  
+#' @param dryspell_ends_in_months  logical if \code{TRUE} dry spell ending on a date within the selected \code{months} are considered
+#' @param min_dry_spell_length minimum length (number of days) of a dry spell in order to be taken in consideration. Default is 3.  
+
+#' @param ... further arguments 
 #'
 #'
 #'
 #' @importFrom stringr str_split
-#'
+#' @importFrom lubridate days
+#' 
 #' @export
 #'
 #'
@@ -67,7 +72,7 @@ NULL
 #' 
 ###
 
-dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_aggr="max",thres_value=150,set_thres_value_as_na=FALSE,...) {
+dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in_months=TRUE,dryspell_ends_in_months=FALSE,start_day=1,fun_aggr="max",thres_value=150,set_thres_value_as_na=FALSE,min_dry_spell_length=3,...) {
   
   
   
@@ -75,31 +80,110 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_ag
  
 
 
-  x2 <- x>=valmin
- ## CHECK OTHER CONDITIONS???
-  x3 <- cumsum(x2)
-
-  drys <- split(x2,f=x3)
-  drys_time <- split(timex,f=x3)
-  drys_xval <- split(x,f=x3)
-  cond_ok <- all(sapply(drys,FUN=function(r){r[1]}))
-  if (!cond_ok) cond_ok <- which(!sapply(drys,FUN=function(r){r[1]}))==1
-  xval99 <<- x
-  out_drys99 <<- drys
-  out_drys99_time <<- drys_time
-  out_drys99_xval <<- drys_xval
-  if (!cond_ok) {
-   
-    stop("ERROR in dry spell detection")
+  x2 <- x>valmin
+  spell_state <- array("dry",length(x2))
+  spell_length <- array(1,length(x2))
+  spell_state[which(is.na(x))] <- "na"
+  spell_state[which(x2)] <- "wet"
+  spell_end <- array(FALSE,length(x))
+  spell_end[1] <- TRUE
+  spell_amount <- x 
+  
+  for (i in 2:length(x2)) {
+    
+    if (spell_state[i]==spell_state[i-1]) {
+      spell_end[i] <- TRUE 
+      spell_end[i-1] <- FALSE
+      spell_length[i] <- spell_length[i]+spell_length[i-1]
+      spell_amount[i] <- spell_amount[i]+spell_amount[i-1]
+    } else {
+      
+      spell_end[i] <- TRUE 
+      spell_length[i] <- 1 
+      spell_amount[i] <- x[i]
+    }
+  
+    
   }
   
-  lens <- as.numeric(sapply(X=drys,FUN=function(r){length(r[-1])}))
-  lens[lens>thres_value] <- thres_value
+  
+  out <- data.frame(date=timex,spell_state=spell_state,spell_length=spell_length,spell_end=spell_end,spell_amount=spell_amount)
+  out <- out[which(out$spell_end),]
+  out <- out[which(out$spell_state=="dry"),]
+  ## wet 
+  
+  # 
+  # for (c in 1:ncol(as.data.frame(data[,ignore.date]))){
+  #   
+  #   val <- as.vector(as.data.frame(data[,ignore.date])[,c])
+  #   
+  #   spell_state <- array("dry",length(val))
+  #   
+  #   spell_length <- array(1,length(val))
+  #   ###	spellstart <- array(FALSE,length(val))
+  #   spell_end <- array(FALSE,length(val))
+  #   spell_state[which(is.na(val))] <- "na"
+  #   spell_state[which(val>valmin)] <- "wet"
+  #   
+  #   
+  #   spell_end[1] <- TRUE
+  #   
+  #   for (i in 2:length(spell_state)) {
+  #     
+  #     if (spell_state[i]==spell_state[i-1]) {
+  #       
+  #       spell_end[i] <- TRUE 
+  #       spell_end[i-1] <- FALSE
+  #       spell_length[i] <- spell_length[i]+spell_length[i-1]
+  #     } else{ 
+  #       
+  #       spell_end[i] <- TRUE 
+  #       spell_length[i] <- 1 
+  #       
+  #     }
+  #     
+  #     
+  #   }
+  #   
+  #   spell_length <- spell_length[which(spell_end)]
+  #   spell_state <- spell_state[which(spell_end)]
+  #   
+  #   temp <- data[which(spell_end),!ignore.date]
+  #   
+  #   temp$spell_length <- spell_length
+  #   temp$spell_state <- spell_state
+  #   temp$end_date <- as.Date(paste(temp$year,temp$month,temp$day,sep="-"))
+  #   temp$start_date <- temp$end_date-lubridate::days(temp$spell_length-1)
+  #   
+  # 
+  # 
+  
+  
+  
+ ## CHECK OTHER CONDITIONS???
+  #x3 <- cumsum(x2)
+
+  #drys <- split(x2,f=x3)
+  #drys_time <- split(timex,f=x3)
+  #drys_xval <- split(x,f=x3)
+  #cond_ok <- all(sapply(drys,FUN=function(r){r[1]}))
+  #if (!cond_ok) cond_ok <- which(!sapply(drys,FUN=function(r){r[1]}))==1
+  #xval99 <<- x
+  #out_drys99 <<- drys
+  #out_drys99_time <<- drys_time
+  #out_drys99_xval <<- drys_xval
+  #if (!cond_ok) {
+   
+  #  stop("ERROR in dry spell detection")
+  #}
+  #
+  #lens <- as.numeric(sapply(X=drys,FUN=function(r){length(r[-1])}))
+  #lens[lens>thres_value] <- thres_value
   ####
   ####
   ####
-  vals <- as.numeric(sapply(X=drys_xval,FUN=function(r){sum(r[-1])})) ## rainfall amount
-  ilens <- which(lens>0)
+  #vals <- as.numeric(sapply(X=drys_xval,FUN=function(r){sum(r[-1])})) ## rainfall amount
+  #ilens <- which(lens>0)
     
     #drys1 <- lapply(X=drys,FUN=function(r){r[-1]})
   #drys1_val <- lapply(X=drys_val,FUN=function(r){sum(r[-1])})
@@ -107,18 +191,29 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_ag
   #ll <- sapply(drys1,FUN=length)
   #iccll <- which(ll>0)
  
-  out <- data.frame(spell_length=as.numeric(lens[ilens])) ### PUT THRESHOLD HERE!!!
+  #out <- data.frame(spell_length=as.numeric(lens[ilens])) ### PUT THRESHOLD HERE!!!
   
-  out$spell_amount <- as.numeric(vals[ilens])
-  out$monthxn <- as.numeric(sapply(X=drys_time[ilens],FUN=function(r,d=start_day){terracliva::monthx(r[1],start_day=d)})) 
-  out$yearx <- as.numeric(sapply(X=drys_time[ilens],FUN=function(r,m=months[1],d=start_day){yearx(r[1],start_month=m,start_day=d)})) #%>% as.Date()
-  out001 <<- out
+  ##out$spell_amount <- as.numeric(vals[ilens])
+  out$start_date <- out$date-lubridate::days(out$spell_length-1)
+  out$monthxn <- terracliva::monthx(out$start_date,start_day=start_day)  ##  as.numeric(sapply(X=out$start_date,FUN=function(r,d=start_day){terracliva::monthx(r,start_day=d)})) 
+  out$monthxn2 <- terracliva::monthx(out$date,start_day=start_day) ## as.numeric(sapply(X=out$date,FUN=function(r,d=start_day){terracliva::monthx(r,start_day=d)})) 
+  ### 
+  out$yearx <- yearx(out$start_date,start_month=months[1],start_day=start_day) ##as.numeric(sapply(X=out$start_date,FUN=function(r,m=months[1],d=start_day){yearx(r,start_month=m,start_day=d)})) #%>% as.Date()
+  ##
+  out$month_cond_on_dry_spell <- FALSE
+  if (dryspell_starts_in_months) out$month_cond_on_dry_spell <- out$month_cond_on_dry_spell | (out$monthxn %in% months)
+  if (dryspell_ends_in_months) out$month_cond_on_dry_spell <- out$month_cond_on_dry_spell | (out$monthxn2 %in% months)  
+ 
   
-  out <- out[which(out$monthxn %in% months),]
   
+  ##EC 20240709 out001 <<- out
+  ###
+  
+  out <- out[which(out$month_cond_on_dry_spell),]
+  out <- out[which(out$spell_length>=min_dry_spell_length),]
    ####out$spell_end_date <- lapply(X=drys_time,FUN=function(r){format(r[length(r)])}) #%>% as.Date()
   ###if (is.na(fun_aggr)) fun_aggr <- NULL
-  out002 <<- out
+  ##EC 20240709 out002 <<- out
   if (!is.null(fun_aggr))  {
     
     ###
@@ -132,10 +227,11 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_ag
       
       out2 <- tapply(out$spell_length,FUN=get(itf),INDEX=out$yearx,simplify=TRUE,...)
       out3a <- out3
+     ## names(out3a) <- paste(itf,names(out3),sep="_")
       out3a[names(out2)] <- out2[names(out2)]
-      out3aa <<- out3a
-      out2aa <<- out2
-      out3a <- out2[as.character(sort(as.numeric(names(out3a))))]
+      ##EC 20240709out3aa <<- out3a
+      ##EC 20240709 out2aa <<- out2
+      out3a <- out3a[as.character(sort(as.numeric(names(out3a))))]
       out3a[set_thres_value_as_na & is.na(out3a)] <-  thres_value
       names(out3a) <- paste(itf,names(out3a),sep="_")
       outf[[itf]] <- out3a
@@ -185,7 +281,7 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),start_day=1,fun_ag
     #   out2[set_thres_value_as_na & is.na(out2)] <-  thres_value
     #   out[[]] <- out2
     
-    out_cliva <<- out
+    ##EC 20240709 out_cliva <<- out
     ###print(out)
   }
   
