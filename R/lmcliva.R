@@ -37,6 +37,14 @@ NULL
 
   
 lmcliva <- function(x,distrib="pe3",rt=c(2,5,10,20,50)) {
+  
+    xx <<- x
+     if (is.null(x) | all(is.na(x))) {
+       x[] <- -999
+       cond_null <- TRUE
+     } else{
+       cond_null <- FALSE
+     }
      o1 <- samlmu(x) 
      o2 <- pel(lmom=o1,distrib=distrib)
      nn <- names(o2)
@@ -62,6 +70,8 @@ lmcliva <- function(x,distrib="pe3",rt=c(2,5,10,20,50)) {
      o2 <- c(o2,odefs,oexcs)
      names(o2) <- paste(distrib,names(o2),sep="_")
      o <- c(o1,o2)
+     
+     o[cond_null] <- NA 
      return(o)
 }
   
