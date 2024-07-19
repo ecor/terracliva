@@ -5,7 +5,7 @@ NULL
 #' @param x time series (e.g. daily precipitation)
 #' @param timex corresponding vector of dates for \code{x}
 #' @param index,fun further arguments passed to \code{\link{apprast}}
-#' @param ... further arguments for \code{\link{dryspellcliva}} 
+#' @param na.rm,... further arguments for \code{\link{dryspellcliva}} 
 #'
 #'
 #'
@@ -47,10 +47,10 @@ NULL
 ## out10 TO BE TESTED # put a  a thresholds!!!!
 
 
-dryspellapprast <- function(x,timex=time(x),fun=dryspellcliva,index=1,...){
+dryspellapprast <- function(x,timex=time(x),fun=dryspellcliva,index=1,na.rm=TRUE,...){
   
   
-  out <- apprast(x,timex=timex,fun=fun,index=index,...)
+  out <- apprast(x,timex=timex,fun=fun,index=index,na.rm=na.rm,...)
   
   return(out)
   

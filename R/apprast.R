@@ -6,7 +6,8 @@ NULL
 #' @param x a \code{SpatRast-Class} object
 #' @param fun function. Default is \code{\link{samlmu}}. See \code{\link{app}},\code{\link{tapp}}
 #' @param index see \code{\link{app}}. It can be set equal to \code{"monthly"}
-#' @param ... further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}
+#' 
+#' @param na.rm,... further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}
 #' 
 #' @importFrom magrittr  %>% 
 #' @importFrom terra app nlyr tapp time
@@ -32,8 +33,8 @@ NULL
 #' 
 #' 
 #' out_yearly <- apprast(dataset_yearly)
-#' 
-#' funpel <- function(x,distrib="pe3") {
+#' ## Function must contain a na.rm or ... argument. 
+#' funpel <- function(x,distrib="pe3",...) {
 #'   o1 <- samlmu(x) 
 #'   o <- o1 %>% pel(distrib=distrib)
 #'   nn <- names(o)
@@ -58,21 +59,33 @@ NULL
 #' 
 #' 
 #'
-apprast <- function(x,index=1,fun=samlmu,...){
+apprast <- function(x,index=1,fun=samlmu,na.rm=TRUE,...){
   
   ##out <- tapp(x,indexx,fun=samlmu)
   if (length(index)<1) index <- 1 
+  if (("na.rm" %in% names(formals(fun)))) {
+    na.rm.exists=TRUE
+  } else {
+    na.rm.exists=FALSE
+  } 
   
   
   if (index[1]=="monthly") index <- month(time(x)) %>% sprintf(fmt="M%02d")
   
   if (length(index)==nlyr(x) & nlyr(x)>1) {
     
-    out <- tapp(x,index=index,fun=fun,...)
+    if (na.rm.exists) {
+      out <- tapp(x,index=index,fun=fun,na.rm=na.rm,...)
+    } else {
+      out <- tapp(x,index=index,fun=fun,...)
+    }
+  } else  if (na.rm.exists) {
+    
+    out <- app(x,fun=fun,na.rm=na.rm,...)
+    
   } else {
     
     out <- app(x,fun=fun,...)
-    
   }
   
   return(out)

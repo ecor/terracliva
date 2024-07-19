@@ -4,7 +4,14 @@
 \alias{dryspellapprast}
 \title{Dry Spell Analysis in Spatial Gridded Coverage}
 \usage{
-dryspellapprast(x, timex = time(x), fun = dryspellcliva, index = 1, ...)
+dryspellapprast(
+  x,
+  timex = time(x),
+  fun = dryspellcliva,
+  index = 1,
+  na.rm = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{time series (e.g. daily precipitation)}
@@ -13,7 +20,7 @@ dryspellapprast(x, timex = time(x), fun = dryspellcliva, index = 1, ...)
 
 \item{index, fun}{further arguments passed to \code{\link{apprast}}}
 
-\item{...}{further arguments for \code{\link{dryspellcliva}}}
+\item{na.rm, ...}{further arguments for \code{\link{dryspellcliva}}}
 }
 \description{
 Dry Spell Analysis in Spatial Gridded Coverage

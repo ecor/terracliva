@@ -13,7 +13,7 @@ NULL
 #' @param dryspell_starts_in_months logical if \code{TRUE} dry spell starting on a date within the selected \code{months} are considered  
 #' @param dryspell_ends_in_months  logical if \code{TRUE} dry spell ending on a date within the selected \code{months} are considered
 #' @param min_dry_spell_length minimum length (number of days) of a dry spell in order to be taken in consideration. Default is 3.  
-
+#' @param na.rm a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
 #' @param ... further arguments 
 #'
 #'
@@ -72,14 +72,24 @@ NULL
 #' 
 ###
 
-dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in_months=TRUE,dryspell_ends_in_months=FALSE,start_day=1,fun_aggr="max",thres_value=150,set_thres_value_as_na=FALSE,min_dry_spell_length=3,...) {
+dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in_months=TRUE,dryspell_ends_in_months=FALSE,start_day=1,fun_aggr="max",thres_value=150,set_thres_value_as_na=FALSE,min_dry_spell_length=3,na.rm=FALSE,...) {
   
   
   
 
  
 
-
+  ##20240719 x_global <<- x 
+  
+  ##20240719 timex_global <<- timex
+  if (is.null(x) | all(is.na(x))) {
+    x[] <- -999
+    cond_null <- TRUE
+  } else{
+    cond_null <- FALSE
+  }
+  
+  
   x2 <- x>valmin
   spell_state <- array("dry",length(x2))
   spell_length <- array(1,length(x2))
@@ -200,6 +210,7 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
   ### 
   out$yearx <- yearx(out$start_date,start_month=months[1],start_day=start_day) ##as.numeric(sapply(X=out$start_date,FUN=function(r,m=months[1],d=start_day){yearx(r,start_month=m,start_day=d)})) #%>% as.Date()
   ##
+  ##20240719 out_global <<- out 
   out$month_cond_on_dry_spell <- FALSE
   if (dryspell_starts_in_months) out$month_cond_on_dry_spell <- out$month_cond_on_dry_spell | (out$monthxn %in% months)
   if (dryspell_ends_in_months) out$month_cond_on_dry_spell <- out$month_cond_on_dry_spell | (out$monthxn2 %in% months)  
@@ -211,6 +222,7 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
   
   out <- out[which(out$month_cond_on_dry_spell),]
   out <- out[which(out$spell_length>=min_dry_spell_length),]
+  out$spell_length[cond_null] <- NA 
    ####out$spell_end_date <- lapply(X=drys_time,FUN=function(r){format(r[length(r)])}) #%>% as.Date()
   ###if (is.na(fun_aggr)) fun_aggr <- NULL
   ##EC 20240709 out002 <<- out
@@ -224,8 +236,9 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
     out3 <- array(as.numeric(NA),length(year_u))
     names(out3) <- year_u
     for (itf in fun_aggr) {
-      
-      out2 <- tapply(out$spell_length,FUN=get(itf),INDEX=out$yearx,simplify=TRUE,...)
+      print(na.rm)
+      na.rm_global <- na.rm
+      out2 <- tapply(out$spell_length,FUN=get(itf),INDEX=out$yearx,simplify=TRUE,na.rm=na.rm,...)
       out3a <- out3
      ## names(out3a) <- paste(itf,names(out3),sep="_")
       out3a[names(out2)] <- out2[names(out2)]
@@ -244,6 +257,7 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
     
     out <- unlist(outf)
     names(out) <- sapply(str_split(names(out),"[.]"),FUN=function(x){x[[2]]})
+    out[cond_null] <- NA
      ## if (is.character(itf)) itf <- get(itf)
     
     #####
@@ -283,6 +297,7 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
     
     ##EC 20240709 out_cliva <<- out
     ###print(out)
+    
   }
   
   #out <- as.data.frame(out)

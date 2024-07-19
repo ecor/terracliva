@@ -2,9 +2,9 @@
 % Please edit documentation in R/lmcliva.R
 \name{lmcliva}
 \alias{lmcliva}
-\title{Precipitation Defivit with L--Moments  Climate Variability Analysis}
+\title{Precipitation Deficit with L--Moments  Climate Variability Analysis}
 \usage{
-lmcliva(x, distrib = "pe3", rt = c(2, 5, 10, 20, 50))
+lmcliva(x, distrib = "pe3", rt = c(2, 5, 10, 20, 50), na.rm = FALSE, ...)
 }
 \arguments{
 \item{x}{time series (e.g. precipitation)}
@@ -12,9 +12,13 @@ lmcliva(x, distrib = "pe3", rt = c(2, 5, 10, 20, 50))
 \item{distrib}{probability distribution function. See \code{\link{pel}}}
 
 \item{rt}{return periods for deficit and excess}
+
+\item{na.rm}{a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
+
+\item{...}{further arguments}
 }
 \description{
-Precipitation Defivit with L--Moments  Climate Variability Analysis
+Precipitation Deficit with L--Moments  Climate Variability Analysis
 }
 \note{
 \code{x} must have the proper time aggregation for the analysis before the execution of this function.

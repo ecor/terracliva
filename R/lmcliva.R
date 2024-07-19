@@ -1,12 +1,12 @@
 NULL
 #' 
-#' Precipitation Defivit with L--Moments  Climate Variability Analysis 
+#' Precipitation Deficit with L--Moments  Climate Variability Analysis 
 #' 
 #' @param x time series (e.g. precipitation)
 #' @param distrib probability distribution function. See \code{\link{pel}}
 #' @param rt return periods for deficit and excess
-#'
-#'
+#' @param na.rm a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
+#' @param ... further arguments
 #'
 #' @export
 #'
@@ -36,10 +36,11 @@ NULL
 #'
 
   
-lmcliva <- function(x,distrib="pe3",rt=c(2,5,10,20,50)) {
+lmcliva <- function(x,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,...) {
   
-    xx <<- x
-     if (is.null(x) | all(is.na(x))) {
+    
+    
+     if (is.null(x) | all(is.na(x)) | (any(is.na(x)) & !na.rm)) {
        x[] <- -999
        cond_null <- TRUE
      } else{

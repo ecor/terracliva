@@ -16,6 +16,7 @@ dryspellcliva(
   thres_value = 150,
   set_thres_value_as_na = FALSE,
   min_dry_spell_length = 3,
+  na.rm = FALSE,
   ...
 )
 }
@@ -41,6 +42,8 @@ dryspellcliva(
 \item{set_thres_value_as_na}{logical it sets \code{thres_value} (if possible) when the value is previously not assigned}
 
 \item{min_dry_spell_length}{minimum length (number of days) of a dry spell in order to be taken in consideration. Default is 3.}
+
+\item{na.rm}{a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
 
 \item{...}{further arguments}
 }

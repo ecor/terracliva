@@ -4,7 +4,7 @@
 \alias{apprast}
 \title{Computes a function on multi-layer raster, specially thought for Climate Variability Analysis in Spatial Gridded Coverage}
 \usage{
-apprast(x, index = 1, fun = samlmu, ...)
+apprast(x, index = 1, fun = samlmu, na.rm = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{SpatRast-Class} object}
@@ -13,7 +13,7 @@ apprast(x, index = 1, fun = samlmu, ...)
 
 \item{fun}{function. Default is \code{\link{samlmu}}. See \code{\link{app}},\code{\link{tapp}}}
 
-\item{...}{further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}}
+\item{na.rm, ...}{further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}}
 }
 \description{
 Computes a function on multi-layer raster, specially thought for Climate Variability Analysis in Spatial Gridded Coverage
@@ -32,8 +32,8 @@ dataset_yearly <- "\%s/yearly/chirps_yearly_goma_\%04d.grd" \%>\% sprintf(datase
 
 
 out_yearly <- apprast(dataset_yearly)
-
-funpel <- function(x,distrib="pe3") {
+## Function must contain a na.rm or ... argument. 
+funpel <- function(x,distrib="pe3",...) {
   o1 <- samlmu(x) 
   o <- o1 \%>\% pel(distrib=distrib)
   nn <- names(o)
