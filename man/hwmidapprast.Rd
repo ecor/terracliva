@@ -16,7 +16,7 @@ cwmidapprast(x, timex = time(x), fun = cwmidcliva, index = 1, ...)
 
 \item{index, fun}{further arguments passed to \code{\link{apprast}}}
 
-\item{...}{further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}}
+\item{...}{further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}, \code{\link{apprast}}(then also \code{\link{writeRaster}})}
 }
 \description{
 Heat and Cold waves analysis in Spatial Gridded Coverage

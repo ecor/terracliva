@@ -9,7 +9,7 @@ lmapprast(x, index = 1, distrib = "pe3", fun = lmcliva, na.rm = TRUE, ...)
 \arguments{
 \item{x}{a \code{SpatRast-Class} object}
 
-\item{index, fun, na.rm, ...}{further arguments passed to \code{\link{apprast}} and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default).}
+\item{index, fun, na.rm, ...}{further arguments passed to \code{\link{apprast}}(then also \code{\link{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default).}
 
 \item{distrib}{probability distribution function. See \code{\link{pel}}}
 }

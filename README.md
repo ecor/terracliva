@@ -8,6 +8,9 @@ See  manual for further details.
 
 ```
 remotes::install_github("ecor/terracliva")
+## or using auth token 
+remotes::install_github("ecor/terracliva",auth_token="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")
+
 ```
 
 ## Usage from R console 

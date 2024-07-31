@@ -20,7 +20,9 @@ dryspellapprast(
 
 \item{index, fun}{further arguments passed to \code{\link{apprast}}}
 
-\item{na.rm, ...}{further arguments for \code{\link{dryspellcliva}}}
+\item{na.rm}{logical. Remove or not NA values. See \code{\link{dryspellcliva}},\code{\link{max}},\code{\link{q25}},\code{\link{q75}}}
+
+\item{...}{further arguments for \code{\link{dryspellcliva}} , , \code{\link{apprast}}(then also \code{\link{writeRaster}})}
 }
 \description{
 Dry Spell Analysis in Spatial Gridded Coverage

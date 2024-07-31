@@ -5,7 +5,8 @@ NULL
 #' @param x time series (e.g. daily precipitation)
 #' @param timex corresponding vector of dates for \code{x}
 #' @param index,fun further arguments passed to \code{\link{apprast}}
-#' @param na.rm,... further arguments for \code{\link{dryspellcliva}} 
+#' @param na.rm logical. Remove or not NA values. See \code{\link{dryspellcliva}},\code{\link{max}},\code{\link{q25}},\code{\link{q75}}
+#' @param ... further arguments for \code{\link{dryspellcliva}} , , \code{\link{apprast}}(then also \code{\link{writeRaster}})
 #'
 #'
 #'

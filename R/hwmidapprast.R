@@ -6,7 +6,7 @@ NULL
 #' @param x time series a \code{SpatRast-Class} object (e.g. daily maximum or minimum  temperature) 
 #' @param timex corresponding vector of dates for \code{x}
 #' @param index,fun further arguments passed to \code{\link{apprast}}
-#' @param ... further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}
+#' @param ... further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}, \code{\link{apprast}}(then also \code{\link{writeRaster}})
 #'
 #'
 #' @export
