@@ -14,6 +14,8 @@ NULL
 #' @param dryspell_ends_in_months  logical if \code{TRUE} dry spell ending on a date within the selected \code{months} are considered
 #' @param min_dry_spell_length minimum length (number of days) of a dry spell in order to be taken in consideration. Default is 3.  
 #' @param na.rm a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
+#' @param summary_regress logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.
+#' @param signif test significance, see \code{\link{regress}}.
 #' @param ... further arguments 
 #'
 #'
@@ -53,7 +55,7 @@ NULL
 #' outb_max <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="max")
 #' outb_mean <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="mean")
 #' outb_several <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"))
-#' 
+#' outb_several_regress <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"),summary_regress=TRUE)
 #' 
 #' 
 #' 
@@ -72,7 +74,7 @@ NULL
 #' 
 ###
 
-dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in_months=TRUE,dryspell_ends_in_months=FALSE,start_day=1,fun_aggr="max",thres_value=150,set_thres_value_as_na=FALSE,min_dry_spell_length=3,na.rm=FALSE,...) {
+dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in_months=TRUE,dryspell_ends_in_months=FALSE,start_day=1,fun_aggr="max",thres_value=150,set_thres_value_as_na=FALSE,min_dry_spell_length=3,na.rm=FALSE,summary_regress=FALSE,signif=0.1,...) {
   
   
   
@@ -246,9 +248,21 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
       ##EC 20240709 out2aa <<- out2
       out3a <- out3a[as.character(sort(as.numeric(names(out3a))))]
       out3a[set_thres_value_as_na & is.na(out3a)] <-  thres_value
+      if (summary_regress) {
+        
+        o2 <- terracliva::regress(x=out3a,time=as.numeric(names(out3a)),signif=signif)
+        
+        out3a <- c(out3a,o2)
+      }
+      
+      
+      
+      
+      
+      
       names(out3a) <- paste(itf,names(out3a),sep="_")
       outf[[itf]] <- out3a
-      
+     
     } 
     
     ##
@@ -301,7 +315,17 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
   }
   
   #out <- as.data.frame(out)
-
+  
+  
+                    
+    
+    
+    
+  #}
+  
+  
+  
+  
   return(out)
 
 

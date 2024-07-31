@@ -51,7 +51,7 @@ dataset_daily_n <- dataset_daily
 dataset_daily_n[100][1:500] <- 10
 out <- dryspellapprast(dataset_daily_n,valmin=2)
 
-out_several  <- dryspellapprast(dataset_daily_n,valmin=2,fun_aggr=c("q25","median","mean","q75","q90","max"))
+out_several  <- dryspellapprast(dataset_daily_n,valmin=2,fun_aggr=c("q25","median","mean","q75","q90","max"),summary_regress=TRUE)
 
 
 

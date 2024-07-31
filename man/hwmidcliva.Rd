@@ -12,6 +12,9 @@ hwmidcliva(
   return_vector = TRUE,
   cold = FALSE,
   start_month = 1,
+  summary_regress = FALSE,
+  hwmid_thres = 4,
+  signif = 0.1,
   ...
 )
 
@@ -30,7 +33,13 @@ cwmidcliva(...)
 
 \item{start_month}{starting month of the year. Default is 1. (TO TEST)}
 
+\item{summary_regress}{logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.}
+
+\item{signif}{test significance, see \code{\link{regress}}.}
+
 \item{...}{further arguments}
+
+\item{hwmid_thresh}{thresholds. Used if \code{summary_regress==TRUE}.}
 }
 \description{
 Heat and Cold waves analysis
@@ -51,6 +60,7 @@ timex <- time(tmax_dataset_daily)
 
 
 o_hw <- hwmidcliva(x=tmax,timex=timex)
+o_hw_regress <- hwmidcliva(x=tmax,timex=timex,summary_regress=TRUE)
 o_hw6 <- hwmidcliva(x=tmax,timex=timex,start_month=6)
 
 ## COLD WAVE 

@@ -25,7 +25,7 @@ NULL
 #' 
 #'
 #' o_hw <- hwmidapprast(tmax_dataset_daily)
-#'
+#' o_hw_regress <- hwmidapprast(tmax_dataset_daily,summary_regress=TRUE)
 #'
 #' ## COLD WAVE 
 #' tmin_dataset_path <- system.file("ext_data/tmin",package="terracliva")

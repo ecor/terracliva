@@ -10,6 +10,9 @@ NULL
 #' @param cold logical cold wave option 
 #' @param start_month starting month of the year. Default is 1. (TO TEST) 
 #' @param return_vector logical. If \code{TRUE} function returns a vector.
+#' @param summary_regress logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.
+#' @param hwmid_thresh thresholds. Used if \code{summary_regress==TRUE}.
+#' @param signif test significance, see \code{\link{regress}}.
 #' @param ... further arguments
 #'
 #' @importFrom extRemes hwmid
@@ -34,6 +37,7 @@ NULL
 #' 
 #'
 #' o_hw <- hwmidcliva(x=tmax,timex=timex)
+#' o_hw_regress <- hwmidcliva(x=tmax,timex=timex,summary_regress=TRUE)
 #' o_hw6 <- hwmidcliva(x=tmax,timex=timex,start_month=6)
 #'
 #' ## COLD WAVE 
@@ -73,7 +77,7 @@ NULL
 
 
 
-hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,start_month=1,...) {
+hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,start_month=1,summary_regress=FALSE,hwmid_thres=4,signif=0.1,...) {
   
   o <- NULL
   ###
@@ -122,8 +126,33 @@ hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,sta
     o <- o$hwmid[,1]
     if (cond_na) o[] <- as.numeric(NA)
     names(o) <- yTemp+1:length(o)-1
+    
+    if (summary_regress) {
+      
+      o2 <- terracliva::regress(x=o,time=yTemp+1:length(o)-1,signif=signif)
+     
+      o3 <- length(which(o2>=hwmid_thres))
+      names(o3) <- sprintf("n years with index equal or greater then %d",hwmid_thres)
+      o3 <- c(o2,o3)
+      if (!cold) {
+        names(o3) <- paste0("hwmid_",names(o3))
+      } else {
+        names(o3) <- paste0("cwmid_",names(o3))
+      }
+                          
+      o <- c(o,o3)                    
+    
+    
+    
   }
   ###
+  
+  
+    
+    
+    
+  }
+  
   return(o)
 }
 

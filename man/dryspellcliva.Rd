@@ -17,6 +17,8 @@ dryspellcliva(
   set_thres_value_as_na = FALSE,
   min_dry_spell_length = 3,
   na.rm = FALSE,
+  summary_regress = FALSE,
+  signif = 0.1,
   ...
 )
 }
@@ -44,6 +46,10 @@ dryspellcliva(
 \item{min_dry_spell_length}{minimum length (number of days) of a dry spell in order to be taken in consideration. Default is 3.}
 
 \item{na.rm}{a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
+
+\item{summary_regress}{logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.}
+
+\item{signif}{test significance, see \code{\link{regress}}.}
 
 \item{...}{further arguments}
 }
@@ -77,7 +83,7 @@ precb[1:500] <- 10
 outb_max <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="max")
 outb_mean <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="mean")
 outb_several <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"))
-
+outb_several_regress <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"),summary_regress=TRUE)
 
 
 
