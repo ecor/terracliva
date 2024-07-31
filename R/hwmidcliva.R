@@ -11,7 +11,7 @@ NULL
 #' @param start_month starting month of the year. Default is 1. (TO TEST) 
 #' @param return_vector logical. If \code{TRUE} function returns a vector.
 #' @param summary_regress logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.
-#' @param hwmid_thresh thresholds. Used if \code{summary_regress==TRUE}.
+#' @param hwmid_thres thresholds. Used if \code{summary_regress==TRUE}.
 #' @param signif test significance, see \code{\link{regress}}.
 #' @param ... further arguments
 #'
