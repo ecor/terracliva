@@ -35,11 +35,11 @@ cwmidcliva(...)
 
 \item{summary_regress}{logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.}
 
+\item{hwmid_thres}{thresholds. Used if \code{summary_regress==TRUE}.}
+
 \item{signif}{test significance, see \code{\link{regress}}.}
 
 \item{...}{further arguments}
-
-\item{hwmid_thresh}{thresholds. Used if \code{summary_regress==TRUE}.}
 }
 \description{
 Heat and Cold waves analysis
