@@ -6,7 +6,7 @@ NULL
 #' @param x a \code{SpatRast-Class} object
 #' @param fun function. Default is \code{\link{samlmu}}. See \code{\link{app}},\code{\link{tapp}}
 #' @param index see \code{\link{app}}. It can be set equal to \code{"monthly"}
-#' 
+#' @param mm values of months selects for analyis with \code{fun}. Default is \code{1:12} , it is used in case \code{index=="monthly"} 
 #' @param na.rm,... further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}
 #' 
 #' @importFrom magrittr  %>% 
@@ -52,14 +52,14 @@ NULL
 #' index_monthly  <- month(time(dataset_monthly)) %>% sprintf(fmt="M%02d")
 #' 
 #' out_monthly <- apprast(dataset_monthly,index=index_monthly)
-#' out_monthly_pel <- apprast(dataset_monthly,fun=funpel)
+#' out_monthly_pel <- apprast(dataset_monthly,fun=funpel,index=index_monthly)
+#' out_monthly_pel_ <- apprast(dataset_monthly,fun=funpel,index="monthly")
 #' 
-#' 
-#' 
+#' out_monthly_pel_ <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5)
 #' 
 #' 
 #'
-apprast <- function(x,index=1,fun=samlmu,na.rm=TRUE,...){
+apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,...){
   
   ##out <- tapp(x,indexx,fun=samlmu)
   if (length(index)<1) index <- 1 
@@ -69,9 +69,15 @@ apprast <- function(x,index=1,fun=samlmu,na.rm=TRUE,...){
     na.rm.exists=FALSE
   } 
   
+
   
-  if (index[1]=="monthly") index <- month(time(x)) %>% sprintf(fmt="M%02d")
-  
+  if (!is.na(index[1])) if (index[1]=="monthly") {
+    index <- month(time(x)) 
+    mm <- mm[mm %in% 1:12]
+    if (length(mm)==0) mm=1:12
+    x <- x[[which(index %in% mm)]]
+    index <- month(time(x)) %>% sprintf(fmt="M%02d")
+  }
   if (length(index)==nlyr(x) & nlyr(x)>1) {
     
     if (na.rm.exists) {

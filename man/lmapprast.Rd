@@ -42,7 +42,7 @@ time(dataset_monthly) <-  names(dataset_monthly) \%>\% paste0("_01") \%>\% as.Da
 
 out_monthly <- lmapprast(dataset_monthly,index="monthly",distrib="pe3")
 
-
+out_monthly_ <- lmapprast(dataset_monthly,index="monthly",distrib="pe3",mm=c(12,1,2,3))
 
 
 

@@ -4,10 +4,19 @@
 \alias{lmcliva}
 \title{Precipitation Deficit with L--Moments  Climate Variability Analysis}
 \usage{
-lmcliva(x, distrib = "pe3", rt = c(2, 5, 10, 20, 50), na.rm = FALSE, ...)
+lmcliva(
+  x,
+  timex,
+  distrib = "pe3",
+  rt = c(2, 5, 10, 20, 50),
+  na.rm = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{time series (e.g. precipitation)}
+
+\item{timex}{corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month}
 
 \item{distrib}{probability distribution function. See \code{\link{pel}}}
 
@@ -30,7 +39,7 @@ library(terra)
 library(lmomPi)
 
 years <- 1982:2023
-dataset_path <- "/home/ecor/local/rpackages/jrc/terracliva/inst/ext_data/precipitation"
+
 dataset_path <- system.file("ext_data/precipitation",package="terracliva")
 dataset_yearly <- "\%s/yearly/chirps_yearly_goma_\%04d.grd" \%>\% sprintf(dataset_path,years) \%>\% rast()
 

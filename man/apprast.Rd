@@ -4,7 +4,7 @@
 \alias{apprast}
 \title{Computes a function on multi-layer raster, specially thought for Climate Variability Analysis in Spatial Gridded Coverage}
 \usage{
-apprast(x, index = 1, fun = samlmu, na.rm = TRUE, ...)
+apprast(x, index = 1, fun = samlmu, mm = 1:12, na.rm = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{SpatRast-Class} object}
@@ -12,6 +12,8 @@ apprast(x, index = 1, fun = samlmu, na.rm = TRUE, ...)
 \item{index}{see \code{\link{app}}. It can be set equal to \code{"monthly"}}
 
 \item{fun}{function. Default is \code{\link{samlmu}}. See \code{\link{app}},\code{\link{tapp}}}
+
+\item{mm}{values of months selects for analyis with \code{fun}. Default is \code{1:12} , it is used in case \code{index=="monthly"}}
 
 \item{na.rm, ...}{further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}}
 }
@@ -51,10 +53,10 @@ time(dataset_monthly) <-  names(dataset_monthly) \%>\% paste0("_01") \%>\% as.Da
 index_monthly  <- month(time(dataset_monthly)) \%>\% sprintf(fmt="M\%02d")
 
 out_monthly <- apprast(dataset_monthly,index=index_monthly)
-out_monthly_pel <- apprast(dataset_monthly,fun=funpel)
+out_monthly_pel <- apprast(dataset_monthly,fun=funpel,index=index_monthly)
+out_monthly_pel_ <- apprast(dataset_monthly,fun=funpel,index="monthly")
 
-
-
+out_monthly_pel_ <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5)
 
 
 

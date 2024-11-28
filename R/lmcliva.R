@@ -3,6 +3,7 @@ NULL
 #' Precipitation Deficit with L--Moments  Climate Variability Analysis 
 #' 
 #' @param x time series (e.g. precipitation)
+#' @param timex corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month
 #' @param distrib probability distribution function. See \code{\link{pel}}
 #' @param rt return periods for deficit and excess
 #' @param na.rm a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
@@ -23,7 +24,7 @@ NULL
 #' library(lmomPi)
 #' 
 #' years <- 1982:2023
-#' dataset_path <- "/home/ecor/local/rpackages/jrc/terracliva/inst/ext_data/precipitation"
+#' 
 #' dataset_path <- system.file("ext_data/precipitation",package="terracliva")
 #' dataset_yearly <- "%s/yearly/chirps_yearly_goma_%04d.grd" %>% sprintf(dataset_path,years) %>% rast()
 #' 
@@ -36,7 +37,7 @@ NULL
 #'
 
   
-lmcliva <- function(x,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,...) {
+lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,...) {
   
     
     
