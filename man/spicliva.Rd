@@ -4,20 +4,42 @@
 \alias{spicliva}
 \title{SPI / SPEI index  (see lmomPi implementation)}
 \usage{
-spicliva(x, timex, distrib = "pe3", spi.scale = 1, index = "monthly", ...)
+spicliva(
+  x,
+  timex,
+  timex_ref = timex,
+  distrib = "pe3",
+  spi.scale = 1,
+  index = "monthly_spi",
+  summary_regress = FALSE,
+  pthres = 10^-5,
+  signif = 0.1,
+  na.rm = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{time series (e.g. monthly precipitation)}
 
 \item{timex}{corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month}
 
+\item{timex_ref}{corresponding vector of dates in which probability distribution (with its parameters) is estimated}
+
 \item{distrib}{probability distribution function. See \code{\link{pel}}}
 
 \item{spi.scale}{integer value or \code{NA}. If it greater than 1 \code{x} is filtered with the sum of a generic element of \code{x} and the previous \code{spi.scale-1} ones (e.g. SPI-3,SPI-6, etc. ). Default is \code{NA} (no filtering) which is equivalent to \code{spi.scale=1}.}
 
-\item{...}{further arguments}
+\item{index}{argument it is set equal to \code{"monthly"}}
+
+\item{summary_regress}{logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.}
+
+\item{pthres}{tail probability thresholds , in case of regression absolute values greater than \code{-qnorm(pthres)} are cut off.}
+
+\item{signif}{test significance, see \code{\link{regress}}.}
 
 \item{na.rm}{a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
+
+\item{...}{further arguments}
 }
 \description{
 SPI / SPEI index  (see lmomPi implementation)
@@ -44,6 +66,11 @@ timeprec <- terra::time(dataset_monthly)
 spi1 <- spicliva(x=prec,timex=timeprec,distrib="pe3")
 spi1 <- spicliva(x=prec,timex=timeprec)
 spi3 <- spicliva(x=prec,timex=timeprec,spi.scale=3)
+ 
+spi1r <- spicliva(x=prec,timex=timeprec,summary_regress=TRUE)
+spi3r <- spicliva(x=prec,timex=timeprec,spi.scale=3,summary_regress=TRUE)
+
+
 
 
 }

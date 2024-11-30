@@ -72,11 +72,11 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,...){
 
   
   if (!is.na(index[1])) if (index[1]=="monthly") {
-    index <- month(time(x)) 
+    index <- lubridate::month(terra::time(x)) 
     mm <- mm[mm %in% 1:12]
     if (length(mm)==0) mm=1:12
     x <- x[[which(index %in% mm)]]
-    index <- month(time(x)) %>% sprintf(fmt="M%02d")
+    index <- lubridate::month(terra::time(x)) %>% sprintf(fmt="M%02d")
   }
   if (length(index)==nlyr(x) & nlyr(x)>1) {
     

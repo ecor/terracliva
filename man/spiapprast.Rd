@@ -17,13 +17,13 @@ spiapprast(
 \arguments{
 \item{x}{a \code{SpatRast-Class} object}
 
+\item{timex}{corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month}
+
 \item{index, na.rm, ...}{further arguments passed to \code{\link{apprast}}(then also \code{\link{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default).}
 
 \item{distrib}{probability distribution function. See \code{\link{pel}}}
 
 \item{fun}{argument passed to \code{\link{apprast}} Default is \code{\link{spicliva}}. See there further information.}
-
-\item{...}{further arguments for \code{\fun}}
 }
 \description{
 SPI / SPEI index  (see lmomPi implementation)  Climate Variability Analysis in Spatial Gridded Coverage
@@ -47,9 +47,9 @@ terra::time(dataset_monthly) <-  names(dataset_monthly) \%>\% paste0("_01") \%>\
 spi1 <- spiapprast(x=dataset_monthly,distrib="pe3")
 spi1 <- spiapprast(x=dataset_monthly)
 spi3 <- spiapprast(x=dataset_monthly,spi.scale=3)
-###########spi1 <- spicliva(x=prec,timex=timeprec)
-###########spi3 <- spicliva(x=prec,timex=timeprec,spi.scale=3)
 
+spi1r <- spiapprast(x=dataset_monthly,summary_regress=TRUE)
+spi3r <- spiapprast(x=dataset_monthly,summary_regress=TRUE,spi.scale=3)
 
 }
 \seealso{
