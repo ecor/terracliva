@@ -37,6 +37,7 @@ NULL
 #' 
 #'
 #' o_hw <- hwmidcliva(x=tmax,timex=timex)
+#' data.frame(time = as.numeric(names(o_hw)), o_hw) %>% dygraph() %>% dyRangeSelector()
 #' o_hw_regress <- hwmidcliva(x=tmax,timex=timex,summary_regress=TRUE)
 #' o_hw6 <- hwmidcliva(x=tmax,timex=timex,start_month=6)
 #'
