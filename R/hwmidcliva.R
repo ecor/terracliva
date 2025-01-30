@@ -37,6 +37,7 @@ NULL
 #' 
 #'
 #' o_hw <- hwmidcliva(x=tmax,timex=timex)
+#' data.frame(time = as.numeric(names(o_hw)), o_hw) %>% dygraph() %>% dyRangeSelector()
 #' o_hw_regress <- hwmidcliva(x=tmax,timex=timex,summary_regress=TRUE)
 #' o_hw6 <- hwmidcliva(x=tmax,timex=timex,start_month=6)
 #'
@@ -132,7 +133,8 @@ hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,sta
       o2 <- terracliva::regress(x=o,time=yTemp+1:length(o)-1,signif=signif)
      
       o3 <- length(which(o>=hwmid_thres)) ### corrected !! 
-      names(o3) <- sprintf("n years with index equal or greater then %d",hwmid_thres)
+
+      names(o3) <- sprintf("n years with index equal or greater than %d",hwmid_thres)
       o3 <- c(o2,o3)
       if (!cold) {
         names(o3) <- paste0("hwmid_",names(o3))
