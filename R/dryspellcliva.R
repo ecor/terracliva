@@ -235,19 +235,42 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
     
     outf <- list()
     year_u <- sort(unique(yearx(timex,start_day=start_day,start_month=months[1])))  ##min(out$yearx):max(out$yearx)
-    out3 <- array(as.numeric(NA),length(year_u))
+   #### year_u1 <- sort(unique(year(timex))
+   ####  year_u <- sort(unique(year(timex)))
+            
+                           
+                  
+                            
+                   
+    ## correction here 
+    ##if (year(timex[1])==(year_u[1]+1)) year_u <- year_u[-1] ## 20241211 
+    
+    
+    ##
+    
+     out3 <- array(as.numeric(NA),length(year_u))
     names(out3) <- year_u
+    out33aa <<- out3
+    outslll <<- out
+    
     for (itf in fun_aggr) {
-      print(na.rm)
+      ####print(na.rm)
       na.rm_global <- na.rm
       out2 <- tapply(out$spell_length,FUN=get(itf),INDEX=out$yearx,simplify=TRUE,na.rm=na.rm,...)
       out3a <- out3
      ## names(out3a) <- paste(itf,names(out3),sep="_")
       out3a[names(out2)] <- out2[names(out2)]
+      
+      
       ##EC 20240709out3aa <<- out3a
       ##EC 20240709 out2aa <<- out2
+      
+      
+      
       out3a <- out3a[as.character(sort(as.numeric(names(out3a))))]
       out3a[set_thres_value_as_na & is.na(out3a)] <-  thres_value
+      
+      out3aglo <<- out3a
       if (summary_regress) {
         
         o2 <- terracliva::regress(x=out3a,time=as.numeric(names(out3a)),signif=signif)
@@ -258,20 +281,31 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
       
       
       
-      
+      out3aglo2 <<- out3a
       
       names(out3a) <- paste(itf,names(out3a),sep="_")
       outf[[itf]] <- out3a
-     
+      out3aglo3 <<- out3a
     } 
+    
+    
+    
     
     ##
     
-   
+    outfglo1 <<- outf
     
     out <- unlist(outf)
+    
+    outfglo2 <<- out
     names(out) <- sapply(str_split(names(out),"[.]"),FUN=function(x){x[[2]]})
+    
+    cond_null_glob <<- cond_null
+    outglo0 <<- out
+    
     out[cond_null] <- NA
+    
+    outglobal <<- out
      ## if (is.character(itf)) itf <- get(itf)
     
     #####

@@ -57,11 +57,73 @@ NULL
 #' 
 #' out_monthly_pel_ <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5)
 #' 
-#' 
+#' out_monthly_pel2 <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5,npart=2)
 #'
-apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,...){
+apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart,nparty=npart,filename="",...){
   
   ##out <- tapp(x,indexx,fun=samlmu)
+  ##  
+  cond_part <- (npartx>1 | nparty>1)
+  
+  ## EC 20250130
+  
+  if (cond_part) {
+     
+     eem <- ext(x)
+     out0 <- list()
+     for (ix in 1:npartx){
+       out0[[ix]] <- list()
+       for (iy in 1:nparty) {
+         
+        ee <- eem
+        ee$xmin <- (ix-1)*(eem$xmax-eem$xmin)/npartx+eem$xmin
+        ee$xmax <- (ix)*(eem$xmax-eem$xmin)/npartx+eem$xmin
+        ee$ymin <- (iy-1)*(eem$ymax-eem$ymin)/nparty+eem$ymin
+        ee$ymax <- (iy)*(eem$ymax-eem$ymin)/nparty+eem$ymin
+        
+        x_crop <- crop(x,y=ee)
+        
+        
+        out0[[ix]][[iy]] <- apprast(x_crop,index=index,fun=fun,
+                                    mm=mm,na.rm=na.rm,npart=1,...)
+        
+        
+         
+       }
+       
+       
+      
+       
+     }     
+     ## out0 TO BE MERGED 
+     
+      
+     return(out0)
+     
+  } 
+  
+  ## EC 20250130
+  # 
+  #   ee <- ext(x)
+  #   out <- i 
+  #   filename <- list(...)$filename
+  #   if (is.null(filename)) {}
+  #     filename <- tempfile()
+  #     extension(filename) <- ".grd"
+  #   }
+  # 
+  # 
+  #   out0 <- list()
+  #   for (ix in 1:npartx) for (iy in 1:nparty) {
+  #   
+  #   
+  #   
+  #   }
+  # }
+
+  
+  ## TO CONTINUE ON... 
+  ##
   if (length(index)<1) index <- 1 
   if (("na.rm" %in% names(formals(fun)))) {
     na.rm.exists=TRUE
@@ -81,17 +143,17 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,...){
   if (length(index)==nlyr(x) & nlyr(x)>1) {
     
     if (na.rm.exists) {
-      out <- tapp(x,index=index,fun=fun,na.rm=na.rm,...)
+      out <- tapp(x,index=index,fun=fun,na.rm=na.rm,filename=filename,...)
     } else {
-      out <- tapp(x,index=index,fun=fun,...)
+      out <- tapp(x,index=index,fun=fun,filename=filename,...)
     }
   } else  if (na.rm.exists) {
     
-    out <- app(x,fun=fun,na.rm=na.rm,...)
+    out <- app(x,fun=fun,na.rm=na.rm,filename=filename,...)
     
   } else {
     
-    out <- app(x,fun=fun,...)
+    out <- app(x,fun=fun,filename=filename,...)
   }
   
   return(out)

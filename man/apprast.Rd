@@ -4,7 +4,18 @@
 \alias{apprast}
 \title{Computes a function on multi-layer raster, specially thought for Climate Variability Analysis in Spatial Gridded Coverage}
 \usage{
-apprast(x, index = 1, fun = samlmu, mm = 1:12, na.rm = TRUE, ...)
+apprast(
+  x,
+  index = 1,
+  fun = samlmu,
+  mm = 1:12,
+  na.rm = TRUE,
+  npart = 1,
+  npartx = npart,
+  nparty = npart,
+  filename = "",
+  ...
+)
 }
 \arguments{
 \item{x}{a \code{SpatRast-Class} object}
@@ -58,6 +69,6 @@ out_monthly_pel_ <- apprast(dataset_monthly,fun=funpel,index="monthly")
 
 out_monthly_pel_ <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5)
 
-
+out_monthly_pel2 <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5,npart=2)
 
 }
