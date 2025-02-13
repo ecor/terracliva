@@ -29,7 +29,8 @@ library(lmomPi)
 library(extRemes)
 years <- 1983:2016
 tmax_dataset_path <- system.file("ext_data/tmax",package="terracliva")
-tmax_dataset_daily <- "\%s/daily/chirts_daily_goma_tmax_\%04d.grd" \%>\% sprintf(tmax_dataset_path,years) \%>\% rast()
+tmax_dataset_daily <- "\%s/daily/chirts_daily_goma_tmax_\%04d.grd" \%>\% 
+sprintf(tmax_dataset_path,years) \%>\% rast()
 
 
 
@@ -38,7 +39,8 @@ o_hw_regress <- hwmidapprast(tmax_dataset_daily,summary_regress=TRUE)
 
 ## COLD WAVE 
 tmin_dataset_path <- system.file("ext_data/tmin",package="terracliva")
-tmin_dataset_daily <- "\%s/daily/chirts_daily_goma_tmin_\%04d.grd" \%>\% sprintf(tmin_dataset_path,years) \%>\% rast()
+tmin_dataset_daily <- "\%s/daily/chirts_daily_goma_tmin_\%04d.grd" \%>\% 
+sprintf(tmin_dataset_path,years) \%>\% rast()
 
 o_cw <- cwmidapprast(tmin_dataset_daily)
 

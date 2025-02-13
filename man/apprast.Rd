@@ -14,6 +14,7 @@ apprast(
   npartx = npart,
   nparty = npart,
   filename = "",
+  overwrite = FALSE,
   ...
 )
 }
@@ -26,7 +27,9 @@ apprast(
 
 \item{mm}{values of months selects for analyis with \code{fun}. Default is \code{1:12} , it is used in case \code{index=="monthly"}}
 
-\item{na.rm, ...}{further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}}
+\item{npart, npartx, nparty}{number of partitions along sides.}
+
+\item{filename, overwrite, na.rm, ...}{further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}. See also \code{\link{writeRaster}}.}
 }
 \description{
 Computes a function on multi-layer raster, specially thought for Climate Variability Analysis in Spatial Gridded Coverage
@@ -40,7 +43,8 @@ library(lmomPi)
 years <- 1982:2023
 dataset_path <- "/home/ecor/local/rpackages/jrc/terracliva/inst/ext_data/precipitation"
 dataset_path <- system.file("ext_data/precipitation",package="terracliva")
-dataset_yearly <- "\%s/yearly/chirps_yearly_goma_\%04d.grd" \%>\% sprintf(dataset_path,years) \%>\% rast()
+dataset_yearly <- "\%s/yearly/chirps_yearly_goma_\%04d.grd" \%>\% 
+sprintf(dataset_path,years) \%>\% rast()
 
 
 
@@ -59,7 +63,8 @@ funpel <- function(x,distrib="pe3",...) {
 out_yearly_pel <- apprast(dataset_yearly,fun=funpel)
 
 library(lubridate)
-dataset_monthly <- "\%s/monthly/chirps_monthly_goma_\%04d.grd" \%>\% sprintf(dataset_path,years) \%>\% rast()
+dataset_monthly <- "\%s/monthly/chirps_monthly_goma_\%04d.grd" \%>\% 
+sprintf(dataset_path,years) \%>\% rast()
 time(dataset_monthly) <-  names(dataset_monthly) \%>\% paste0("_01") \%>\% as.Date(format="X\%Y_\%m_\%d")
 index_monthly  <- month(time(dataset_monthly)) \%>\% sprintf(fmt="M\%02d")
 
@@ -71,4 +76,6 @@ out_monthly_pel_ <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5)
 
 out_monthly_pel2 <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5,npart=2)
 
+
+(out_monthly_pel_-out_monthly_pel2) |> abs() |> max() 
 }

@@ -41,7 +41,7 @@ dataset_path <- "/home/ecor/local/rpackages/jrc/terracliva/inst/ext_data/precipi
 dataset_path <- system.file("ext_data/precipitation",package="terracliva")
 dataset_daily <- "\%s/daily/chirps_daily_goma_\%04d.grd" \%>\% sprintf(dataset_path,years) \%>\% rast()
 
-
+\donttest{
 out <- dryspellapprast(dataset_daily,valmin=2)
 ## out5 <- dryspellapprast(dataset_daily,valmin=5)
 ## out9 <- dryspellapprast(dataset_daily,valmin=9)
@@ -51,9 +51,11 @@ dataset_daily_n <- dataset_daily
 dataset_daily_n[100][1:500] <- 10
 out <- dryspellapprast(dataset_daily_n,valmin=2)
 
-out_several  <- dryspellapprast(dataset_daily_n,valmin=2,fun_aggr=c("q25","median","mean","q75","q90","max"),summary_regress=TRUE)
+out_several  <- dryspellapprast(dataset_daily_n,
+valmin=2,fun_aggr=c("q25","median","mean","q75","q90","max"),
+summary_regress=TRUE)
 
-
+}
 
 }
 \seealso{

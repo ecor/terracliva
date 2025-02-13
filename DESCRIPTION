@@ -5,11 +5,11 @@ Type: Package
 Authors@R: c(person(given="Emanuele",family="Cordano",role = c("aut","cre"),email = "emanuele.cordano@gmail.com"))
 Description: Climate Variability Analysis with spatio-temporal gridded coverages
 Version: 0.1.1
-Date: 2025-01-30
+Date: 2025-02-12
 Repository: CRAN
-Depends: lmomPi,terra,magrittr,lmom
+Depends: lmomPi,terra,magrittr,lmom,R (>= 3.5.0)
 Imports: lubridate,extRemes,trend,stringr
-Suggests: 
+Suggests: dygraphs
 RoxygenNote: 7.3.2
 NeedsCompilation: no
 Packaged: 2017-11-28 15:32:55 UTC; cordaem

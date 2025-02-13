@@ -36,8 +36,10 @@ out_yearly <- lmapprast(dataset_yearly)
 
 
 library(lubridate)
-dataset_monthly <- "\%s/monthly/chirps_monthly_goma_\%04d.grd" \%>\% sprintf(dataset_path,years) \%>\% rast()
-time(dataset_monthly) <-  names(dataset_monthly) \%>\% paste0("_01") \%>\% as.Date(format="X\%Y_\%m_\%d")
+dataset_monthly <- "\%s/monthly/chirps_monthly_goma_\%04d.grd" \%>\% 
+sprintf(dataset_path,years) \%>\% rast()
+time(dataset_monthly) <-  names(dataset_monthly) \%>\% 
+paste0("_01") \%>\% as.Date(format="X\%Y_\%m_\%d")
 
 
 out_monthly <- lmapprast(dataset_monthly,index="monthly",distrib="pe3")

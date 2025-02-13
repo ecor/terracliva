@@ -82,8 +82,11 @@ precb <- prec
 precb[1:500] <- 10
 outb_max <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="max")
 outb_mean <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="mean")
-outb_several <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"))
-outb_several_regress <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"),summary_regress=TRUE)
+outb_several <- dryspellcliva(precb,timeprec,valmin=1,
+            fun_aggr=c("q25","median","mean","q75","q90","max"))
+outb_several_regress <- dryspellcliva(precb,timeprec,valmin=1,
+        fun_aggr=c("q25","median","mean","q75","q90","max"),
+        summary_regress=TRUE)
 
 
 

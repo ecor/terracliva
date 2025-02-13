@@ -7,8 +7,11 @@ NULL
 #' @param fun function. Default is \code{\link{samlmu}}. See \code{\link{app}},\code{\link{tapp}}
 #' @param index see \code{\link{app}}. It can be set equal to \code{"monthly"}
 #' @param mm values of months selects for analyis with \code{fun}. Default is \code{1:12} , it is used in case \code{index=="monthly"} 
-#' @param na.rm,... further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}
+#' @param npart,npartx,nparty number of partitions along sides.
+#' @param filename,overwrite,na.rm,... further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}. See also \code{\link{writeRaster}}.
 #' 
+#' 
+#' @importFrom terra ext crop mosaic sprc
 #' @importFrom magrittr  %>% 
 #' @importFrom terra app nlyr tapp time
 #' @importFrom lmom samlmu
@@ -28,7 +31,8 @@ NULL
 #' years <- 1982:2023
 #' dataset_path <- "/home/ecor/local/rpackages/jrc/terracliva/inst/ext_data/precipitation"
 #' dataset_path <- system.file("ext_data/precipitation",package="terracliva")
-#' dataset_yearly <- "%s/yearly/chirps_yearly_goma_%04d.grd" %>% sprintf(dataset_path,years) %>% rast()
+#' dataset_yearly <- "%s/yearly/chirps_yearly_goma_%04d.grd" %>% 
+#' sprintf(dataset_path,years) %>% rast()
 #' 
 #' 
 #' 
@@ -47,7 +51,8 @@ NULL
 #' out_yearly_pel <- apprast(dataset_yearly,fun=funpel)
 #' 
 #' library(lubridate)
-#' dataset_monthly <- "%s/monthly/chirps_monthly_goma_%04d.grd" %>% sprintf(dataset_path,years) %>% rast()
+#' dataset_monthly <- "%s/monthly/chirps_monthly_goma_%04d.grd" %>% 
+#' sprintf(dataset_path,years) %>% rast()
 #' time(dataset_monthly) <-  names(dataset_monthly) %>% paste0("_01") %>% as.Date(format="X%Y_%m_%d")
 #' index_monthly  <- month(time(dataset_monthly)) %>% sprintf(fmt="M%02d")
 #' 
@@ -59,8 +64,11 @@ NULL
 #' 
 #' out_monthly_pel2 <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5,npart=2)
 #'
-apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart,nparty=npart,filename="",...){
+#'
+#' (out_monthly_pel_-out_monthly_pel2) |> abs() |> max() 
+apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart,nparty=npart,filename="",overwrite=FALSE,...){
   
+  # warning \code{x} must have the proper time aggregation for the analysis before the execution of this function.
   ##out <- tapp(x,indexx,fun=samlmu)
   ##  
   cond_part <- (npartx>1 | nparty>1)
@@ -97,8 +105,18 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart
      }     
      ## out0 TO BE MERGED 
      
-      
-     return(out0)
+   
+     out1 <- out0 |> unlist() |> sprc() |> mosaic(filename=filename,overwrite=overwrite,fun="mean")
+     
+    
+     
+     
+    # for (ix in 1:npartx){
+    #   ####out0[[ix]] <- list()
+    #   for (iy in 1:nparty) {
+    #   }
+    # }
+     return(out1)
      
   } 
   
@@ -159,4 +177,4 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart
   return(out)
   
 }
-# @warning \code{x} must have the proper time aggregation for the analysis before the execution of this function.
+

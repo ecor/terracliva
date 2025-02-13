@@ -27,9 +27,12 @@ NULL
 #' library(terra)
 #' library(lmomPi)
 #' library(extRemes)
+#' library(dygraphs)
+#' 
 #' years <- 1983:2016
 #' tmax_dataset_path <- system.file("ext_data/tmax",package="terracliva")
-#' tmax_dataset_daily <- "%s/daily/chirts_daily_goma_tmax_%04d.grd" %>% sprintf(tmax_dataset_path,years) %>% rast()
+#' tmax_dataset_daily <- "%s/daily/chirts_daily_goma_tmax_%04d.grd" %>% 
+#' sprintf(tmax_dataset_path,years) %>% rast()
 #'
 #' tmax <- as.numeric(tmax_dataset_daily[100])
 #' timex <- time(tmax_dataset_daily)
@@ -37,13 +40,15 @@ NULL
 #' 
 #'
 #' o_hw <- hwmidcliva(x=tmax,timex=timex)
-#' data.frame(time = as.numeric(names(o_hw)), o_hw) %>% dygraph() %>% dyRangeSelector()
+#' data.frame(time = as.numeric(names(o_hw)), o_hw) %>% dygraph() %>% 
+#' dyRangeSelector()
 #' o_hw_regress <- hwmidcliva(x=tmax,timex=timex,summary_regress=TRUE)
 #' o_hw6 <- hwmidcliva(x=tmax,timex=timex,start_month=6)
 #'
 #' ## COLD WAVE 
 #' tmin_dataset_path <- system.file("ext_data/tmin",package="terracliva")
-#' tmin_dataset_daily <- "%s/daily/chirts_daily_goma_tmin_%04d.grd" %>% sprintf(tmin_dataset_path,years) %>% rast()
+#' tmin_dataset_daily <- "%s/daily/chirts_daily_goma_tmin_%04d.grd" %>% 
+#' sprintf(tmin_dataset_path,years) %>% rast()
 #'
 #' tmin <- as.numeric(tmin_dataset_daily[100])
 #' 

@@ -54,8 +54,11 @@ NULL
 #' precb[1:500] <- 10
 #' outb_max <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="max")
 #' outb_mean <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr="mean")
-#' outb_several <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"))
-#' outb_several_regress <- dryspellcliva(precb,timeprec,valmin=1,fun_aggr=c("q25","median","mean","q75","q90","max"),summary_regress=TRUE)
+#' outb_several <- dryspellcliva(precb,timeprec,valmin=1,
+#'             fun_aggr=c("q25","median","mean","q75","q90","max"))
+#' outb_several_regress <- dryspellcliva(precb,timeprec,valmin=1,
+#'         fun_aggr=c("q25","median","mean","q75","q90","max"),
+#'         summary_regress=TRUE)
 #' 
 #' 
 #' 
@@ -250,8 +253,8 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
     
      out3 <- array(as.numeric(NA),length(year_u))
     names(out3) <- year_u
-    out33aa <<- out3
-    outslll <<- out
+  ##  out33aa <<- out3
+  ##  outslll <<- out
     
     for (itf in fun_aggr) {
       ####print(na.rm)
@@ -270,7 +273,7 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
       out3a <- out3a[as.character(sort(as.numeric(names(out3a))))]
       out3a[set_thres_value_as_na & is.na(out3a)] <-  thres_value
       
-      out3aglo <<- out3a
+      ##out3aglo <<- out3a
       if (summary_regress) {
         
         o2 <- terracliva::regress(x=out3a,time=as.numeric(names(out3a)),signif=signif)
@@ -281,11 +284,11 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
       
       
       
-      out3aglo2 <<- out3a
+     ## out3aglo2 <<- out3a
       
       names(out3a) <- paste(itf,names(out3a),sep="_")
       outf[[itf]] <- out3a
-      out3aglo3 <<- out3a
+      ##out3aglo3 <<- out3a
     } 
     
     
@@ -293,19 +296,19 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
     
     ##
     
-    outfglo1 <<- outf
+    ## outfglo1 <<- outf
     
     out <- unlist(outf)
     
-    outfglo2 <<- out
+   ### outfglo2 <<- out
     names(out) <- sapply(str_split(names(out),"[.]"),FUN=function(x){x[[2]]})
     
-    cond_null_glob <<- cond_null
-    outglo0 <<- out
+    ###cond_null_glob <<- cond_null
+    ###outglo0 <<- out
     
     out[cond_null] <- NA
     
-    outglobal <<- out
+   #### outglobal <<- out
      ## if (is.character(itf)) itf <- get(itf)
     
     #####
