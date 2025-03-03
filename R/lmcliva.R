@@ -48,31 +48,36 @@ lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,...) {
        cond_null <- FALSE
      }
      o1 <- samlmu(x) 
-     o2 <- pel(lmom=o1,distrib=distrib)
-     nn <- names(o2)
-     o2 <- as.numeric(o2)
-     names(o2) <- nn
+     if (length(distrib)==0) distrib <- NA ## 20250303
+     if (!is.na(distrib)) {
+      o2 <- pel(lmom=o1,distrib=distrib)
+      nn <- names(o2)
+      o2 <- as.numeric(o2)
+      names(o2) <- nn
     
      
-     ### ks.value
-     oks <- ks.test(x=x,y=cdf,distrib=distrib,para=o2[nn])
+      ### ks.value
+      oks <- ks.test(x=x,y=cdf,distrib=distrib,para=o2[nn])
     
-     o2["ks_D_statistic"] <- oks$statistic
-     o2["ks_pvalue"] <- oks$p.value
+      o2["ks_D_statistic"] <- oks$statistic
+      o2["ks_pvalue"] <- oks$p.value
      
      
-     ### quantiles
-     fdefs <- 1/rt
-     fexcs <- 1-1/rt
-     odefs <- qua(para=o2[nn],distrib=distrib,f=fdefs) ## precipitation that can be equal or lower every rt years averagely 
-     names(odefs) <- sprintf("def_rt_%03d",rt) 
-     odefsa <- odefs
-     oexcs <- qua(para=o2[nn],distrib=distrib,f=fexcs) ## precipitation that can be equal or greater every rt years averagely
-     names(oexcs) <- sprintf("exc_rt_%03d",rt)
-     o2 <- c(o2,odefs,oexcs)
-     names(o2) <- paste(distrib,names(o2),sep="_")
-     o <- c(o1,o2)
-     
+      ### quantiles
+      fdefs <- 1/rt
+      fexcs <- 1-1/rt
+      odefs <- qua(para=o2[nn],distrib=distrib,f=fdefs) ## precipitation that can be equal or lower every rt years averagely 
+      names(odefs) <- sprintf("def_rt_%03d",rt) 
+      odefsa <- odefs
+      oexcs <- qua(para=o2[nn],distrib=distrib,f=fexcs) ## precipitation that can be equal or greater every rt years averagely
+      names(oexcs) <- sprintf("exc_rt_%03d",rt)
+      o2 <- c(o2,odefs,oexcs)
+      names(o2) <- paste(distrib,names(o2),sep="_")
+      o <- c(o1,o2)
+      
+     } else {
+       o <- o1 
+     }
      o[cond_null] <- NA 
      return(o)
 }
