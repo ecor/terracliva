@@ -171,7 +171,7 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart
     
   } else {
     
-    out <- app(x,fun=fun,filename=filename,overwrite=overwite,...)
+    out <- app(x,fun=fun,filename=filename,overwrite=overwrite,...)
   }
   
   return(out)

@@ -37,7 +37,6 @@ library(terra)
 
 
 years <- 1982:2023
-dataset_path <- "/home/ecor/local/rpackages/jrc/terracliva/inst/ext_data/precipitation"
 dataset_path <- system.file("ext_data/precipitation",package="terracliva")
 dataset_daily <- "\%s/daily/chirps_daily_goma_\%04d.grd" \%>\% sprintf(dataset_path,years) \%>\% rast()
 
@@ -47,7 +46,7 @@ out <- dryspellapprast(dataset_daily,valmin=2)
 ## out9 <- dryspellapprast(dataset_daily,valmin=9)
 
 
-dataset_daily_n <- dataset_daily
+dataset_daily_n <- dataset_daily + 0
 dataset_daily_n[100][1:500] <- 10
 out <- dryspellapprast(dataset_daily_n,valmin=2)
 
