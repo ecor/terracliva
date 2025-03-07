@@ -227,6 +227,12 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
   
   out <- out[which(out$month_cond_on_dry_spell),]
   out <- out[which(out$spell_length>=min_dry_spell_length),]
+  
+  if(nrow(out) == 0){
+    out[1,] = NA
+    cond_null = TRUE
+  }
+  
   out$spell_length[cond_null] <- NA 
    ####out$spell_end_date <- lapply(X=drys_time,FUN=function(r){format(r[length(r)])}) #%>% as.Date()
   ###if (is.na(fun_aggr)) fun_aggr <- NULL
