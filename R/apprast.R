@@ -161,17 +161,17 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart
   if (length(index)==nlyr(x) & nlyr(x)>1) {
     
     if (na.rm.exists) {
-      out <- tapp(x,index=index,fun=fun,na.rm=na.rm,filename=filename,...)
+      out <- tapp(x,index=index,fun=fun,na.rm=na.rm,filename=filename,overwrite=overwrite,...)
     } else {
-      out <- tapp(x,index=index,fun=fun,filename=filename,...)
+      out <- tapp(x,index=index,fun=fun,filename=filename,overwrite=overwrite,...)
     }
   } else  if (na.rm.exists) {
     
-    out <- app(x,fun=fun,na.rm=na.rm,filename=filename,...)
+    out <- app(x,fun=fun,na.rm=na.rm,filename=filename,overwrite=overwrite,...)
     
   } else {
     
-    out <- app(x,fun=fun,filename=filename,...)
+    out <- app(x,fun=fun,filename=filename,overwrite=overwite,...)
   }
   
   return(out)
