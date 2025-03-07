@@ -37,7 +37,7 @@ NULL
 #'
 
   
-lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,...) {
+lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary_regress=FALSE,signif=0.1,...) {
   
     
     
@@ -48,6 +48,15 @@ lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,...) {
        cond_null <- FALSE
      }
      o1 <- samlmu(x) 
+     ## added EC 20200304
+     if (summary_regress) {
+       
+       o1a <- terracliva::regress(x=x,time=timex,signif=signif)
+       
+       o1 <- c(o1a,o1)
+     }
+     
+     
      if (length(distrib)==0) distrib <- NA ## 20250303
      if (!is.na(distrib)) {
       o2 <- pel(lmom=o1,distrib=distrib)

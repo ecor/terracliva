@@ -10,6 +10,8 @@ lmcliva(
   distrib = "pe3",
   rt = c(2, 5, 10, 20, 50),
   na.rm = FALSE,
+  summary_regress = FALSE,
+  signif = 0.1,
   ...
 )
 }
