@@ -7,6 +7,10 @@ NULL
 #' @param distrib probability distribution function. See \code{\link{pel}}
 #' @param rt return periods for deficit and excess
 #' @param na.rm a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
+#' @param nmom see \code{\link[lmom]{samlmu}}
+#' @param add_t_2,add_t,add_l_cv logical, if one of them is \code{TRUE}, \code{L-CV} or \code{t,t_2} ratio is calculated.
+#' @param summary_regress logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.
+#' @param signif test significance, see \code{\link{regress}}.
 #' @param ... further arguments
 #'
 #' @export
@@ -37,7 +41,7 @@ NULL
 #'
 
   
-lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary_regress=FALSE,signif=0.1,...) {
+lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary_regress=FALSE,signif=0.1,add_t_2=FALSE,add_t=FALSE,add_l_cv=FALSE,nmom=4,...) {
   
     
     
@@ -47,8 +51,16 @@ lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary
      } else{
        cond_null <- FALSE
      }
-     o1 <- samlmu(x) 
+     o1 <- samlmu(x,nmom=nmom) 
      ## added EC 20200304
+     if (add_t) {
+       o1[["t"]] <- o1[["l_2"]]/o1[["l_1"]]
+     } else if (add_t_2) {
+       o1[["t_2"]] <- o1[["l_2"]]/o1[["l_1"]]
+     } else if (add_l_cv) {
+       o1[["l_cv"]] <- o1[["l_2"]]/o1[["l_1"]]
+       
+     }
      if (summary_regress) {
        
        o1a <- terracliva::regress(x=x,time=timex,signif=signif)
@@ -60,6 +72,10 @@ lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary
      if (length(distrib)==0) distrib <- NA ## 20250303
      if (!is.na(distrib)) {
       o2 <- pel(lmom=o1,distrib=distrib)
+      ###
+      ## CHECK pelpe3: L-moments invalid
+      ## 
+      ##
       nn <- names(o2)
       o2 <- as.numeric(o2)
       names(o2) <- nn

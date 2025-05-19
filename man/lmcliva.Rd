@@ -12,6 +12,10 @@ lmcliva(
   na.rm = FALSE,
   summary_regress = FALSE,
   signif = 0.1,
+  add_t_2 = FALSE,
+  add_t = FALSE,
+  add_l_cv = FALSE,
+  nmom = 4,
   ...
 )
 }
@@ -25,6 +29,14 @@ lmcliva(
 \item{rt}{return periods for deficit and excess}
 
 \item{na.rm}{a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
+
+\item{summary_regress}{logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.}
+
+\item{signif}{test significance, see \code{\link{regress}}.}
+
+\item{add_t_2, add_t, add_l_cv}{logical, if one of them is \code{TRUE}, \code{L-CV} or \code{t,t_2} ratio is calculated.}
+
+\item{nmom}{see \code{\link[lmom]{samlmu}}}
 
 \item{...}{further arguments}
 }
