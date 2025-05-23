@@ -8,7 +8,7 @@ NULL
 #' @param distrib probability distribution function. See \code{\link{pel}}
 #' @param spi.scale integer value or \code{NA}. If it greater than 1 \code{x} is filtered with the sum of a generic element of \code{x} and the previous \code{spi.scale-1} ones (e.g. SPI-3,SPI-6, etc. ). Default is \code{NA} (no filtering) which is equivalent to \code{spi.scale=1}.
 #' @param index argument it is set equal to \code{"monthly"}
-#' @param na.rm a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
+#' @param na.rm logical or numeric evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
 #' @param summary_regress logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.
 #' @param signif test significance, see \code{\link{regress}}.
 #' @param pthres tail probability thresholds , in case of regression absolute values greater than \code{-qnorm(pthres)} are cut off. 
@@ -56,7 +56,7 @@ NULL
 #' 
 #' 
   
-spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="monthly_spi",summary_regress=FALSE,pthres=10^-5,signif=0.1,na.rm=FALSE,...) {
+spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="monthly_spi",summary_regress=FALSE,pthres=10^-5,signif=0.1,na.rm=0.3,...) {
   
   
     if (length(x)!=length(timex)) {
@@ -91,7 +91,7 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
        o[o<(-thres)] <- -thres
        o[o>thres]    <- thres
        
-       o2 <- terracliva::regress(x=o,time=timex,signif=signif)
+       o2 <- terracliva::regress(x=o,time=timex,signif=signif,na.rm=na.rm)
        o <- c(o,o2)
      
      }

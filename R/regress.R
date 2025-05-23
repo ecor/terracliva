@@ -4,9 +4,9 @@ NULL
 #' Correlation and Mann-Kendall correlation test 
 #'
 #' @param x time series (vector)
-#' @param time date-time vector
+#' @param time date-time vector, if \code{NULL} , time is the index of \code{x}
 #' @param signif test significance
-#' 
+#' @param na.rm logical or numeric evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
 #' @export
 #'
 #'
@@ -28,8 +28,16 @@ NULL
 #'
 
 
-regress <- function(x,time=(1:length(x))-1,signif=0.1) {  
+regress <- function(x,time=NULL,signif=0.1,na.rm=0.3) {  
   
+  
+  if (is.numeric(na.rm)) na.rm <- length(is.na(x))<=na.rm*length(x)
+  
+  if (na.rm) x <- x[!is.na(x)]
+  if (is.null(time)) time=(1:length(x))-1
+  
+  
+  time=(1:length(x))-1
   if (all(is.na(x))) {
     x <- array(-0.0001,length(x))
     condNA <- TRUE

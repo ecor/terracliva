@@ -14,7 +14,7 @@ spicliva(
   summary_regress = FALSE,
   pthres = 10^-5,
   signif = 0.1,
-  na.rm = FALSE,
+  na.rm = 0.3,
   ...
 )
 }
@@ -37,7 +37,7 @@ spicliva(
 
 \item{signif}{test significance, see \code{\link{regress}}.}
 
-\item{na.rm}{a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
+\item{na.rm}{logical or numeric evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
 
 \item{...}{further arguments}
 }

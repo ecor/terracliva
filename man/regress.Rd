@@ -4,12 +4,12 @@
 \alias{regress}
 \title{Correlation and Mann-Kendall correlation test}
 \usage{
-regress(x, time = (1:length(x)) - 1, signif = 0.1)
+regress(x, time = NULL, signif = 0.1, na.rm = 0.3)
 }
 \arguments{
 \item{x}{time series (vector)}
 
-\item{time}{date-time vector}
+\item{time}{date-time vector, if \code{NULL} , time is the index of \code{x}}
 
 \item{signif}{test significance}
 }
