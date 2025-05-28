@@ -1,6 +1,6 @@
 NULL
 #'
-#' Dry Spell Analysis in Spatial Gridded Coverage
+#' SPI/SPEI Analysis in Spatial Gridded Coverage
 #'
 #' @param x time series (e.g. daily precipitation)
 #' @param timex corresponding vector of dates for \code{x}

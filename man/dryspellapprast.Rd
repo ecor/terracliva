@@ -2,7 +2,7 @@
 % Please edit documentation in R/dryspellapprast.R
 \name{dryspellapprast}
 \alias{dryspellapprast}
-\title{Dry Spell Analysis in Spatial Gridded Coverage}
+\title{SPI/SPEI Analysis in Spatial Gridded Coverage}
 \usage{
 dryspellapprast(
   x,
@@ -25,7 +25,7 @@ dryspellapprast(
 \item{...}{further arguments for \code{\link{dryspellcliva}} , , \code{\link{apprast}}(then also \code{\link{writeRaster}})}
 }
 \description{
-Dry Spell Analysis in Spatial Gridded Coverage
+SPI/SPEI Analysis in Spatial Gridded Coverage
 }
 \examples{
 

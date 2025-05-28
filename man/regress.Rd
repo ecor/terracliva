@@ -12,6 +12,8 @@ regress(x, time = NULL, signif = 0.1, na.rm = 0.3)
 \item{time}{date-time vector, if \code{NULL} , time is the index of \code{x}}
 
 \item{signif}{test significance}
+
+\item{na.rm}{logical or numeric evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
 }
 \description{
 Correlation and Mann-Kendall correlation test

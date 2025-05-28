@@ -5,8 +5,8 @@ Type: Package
 Authors@R: c(person(given="Emanuele",family="Cordano",role = c("aut","cre","ctb"),email = "emanuele.cordano@gmail.com"),
   person(given="Luigi",family="Cattaneo",role = c("ctb"),email = "luigi.cattaneo@ext.ec.europa.eu"))
 Description: This package contains Climate Variability Analysis tools with spatio-temporal gridded coverages.
-Version: 0.1.4
-Date: 2025-05-23
+Version: 0.1.5
+Date: 2025-05-28
 Repository: CRAN
 Depends: lmomPi,terra,magrittr,lmom,R (>= 3.5.0)
 Imports: lubridate,extRemes,trend,stringr

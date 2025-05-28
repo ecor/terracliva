@@ -92,6 +92,7 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
        o[o>thres]    <- thres
        
        o2 <- terracliva::regress(x=o,time=timex,signif=signif,na.rm=na.rm)
+       names(o2) <- "spi_%s" |> sprintf(names(o2))
        o <- c(o,o2)
      
      }
