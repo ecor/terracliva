@@ -6,7 +6,7 @@ NULL
 #' @param timex corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month
 #' @param distrib probability distribution function. See \code{\link{pel}}
 #' @param fun argument passed to \code{\link{apprast}} Default is \code{\link{spicliva}}. See there further information.
-#' @param index,na.rm,... further arguments passed to \code{\link{apprast}}(then also \code{\link{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default). 
+#' @param index,na.rm,spi.scale,... further arguments passed to \code{\link{apprast}}(then also \code{\link{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default). 
 #' 
 #'
 #' @export
@@ -40,13 +40,15 @@ NULL
 #' spi3r <- spiapprast(x=dataset_monthly,summary_regress=TRUE,spi.scale=3)
 #'
   
-spiapprast <- function(x,timex=time(x),index=1,distrib="pe3",fun=spicliva,na.rm=TRUE,...){
+spiapprast <- function(x,timex=time(x),index=1,distrib="pe3",fun=spicliva,na.rm=0.3,spi.scale=1,...){
   
  #### function(x,timex,distrib="pe3",spi.scale=1,fun=spicliva,...) {
   
     
-  out <- apprast(x,timex=timex,index=index,distrib=distrib,fun=fun,na.rm=na.rm,...)
+  out <- apprast(x,timex=timex,index=index,distrib=distrib,fun=fun,na.rm=na.rm,spi.scale=spi.scale,...)
   ##terra::time(out) <- timex
+  attr(out,"spi.scale") <- spi.scale
+  
   
      return(out)
 }

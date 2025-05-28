@@ -10,7 +10,8 @@ spiapprast(
   index = 1,
   distrib = "pe3",
   fun = spicliva,
-  na.rm = TRUE,
+  na.rm = 0.3,
+  spi.scale = 1,
   ...
 )
 }

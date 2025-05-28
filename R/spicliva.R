@@ -84,7 +84,7 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
      
      
      
-     names(o) <- timex
+     names(o) <- "spi%02d_%04d_%02d" |> sprintf(spi.scale,year(timex),month(timex))
      
      if (summary_regress) {
        thres <- -qnorm(pthres)
@@ -92,7 +92,7 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
        o[o>thres]    <- thres
        
        o2 <- terracliva::regress(x=o,time=timex,signif=signif,na.rm=na.rm)
-       names(o2) <- "spi_%s" |> sprintf(names(o2))
+       names(o2) <- "spi%02d_%s" |> sprintf(spi.scale,names(o2))
        o <- c(o,o2)
      
      }
