@@ -11,7 +11,6 @@ spiapprast(
   distrib = "pe3",
   fun = spicliva,
   na.rm = 0.3,
-  spi.scale = 1,
   ...
 )
 }

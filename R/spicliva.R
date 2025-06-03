@@ -84,7 +84,7 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
      
      
      
-     names(o) <- "spi%02d_%04d_%02d" |> sprintf(spi.scale,year(timex),month(timex))
+     names(o) <- "spi%02d_on_%04d_%02d" |> sprintf(spi.scale,year(timex),month(timex))
      
      if (summary_regress) {
        thres <- -qnorm(pthres)
