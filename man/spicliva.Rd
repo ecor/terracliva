@@ -15,6 +15,9 @@ spicliva(
   pthres = 10^-5,
   signif = 0.1,
   na.rm = 0.3,
+  add_cat = FALSE,
+  spi.classes = read.table(system.file("settings/spi_class.csv", package = "terracliva"),
+    header = TRUE, sep = ",", comment.char = "?"),
   ...
 )
 }
@@ -38,6 +41,10 @@ spicliva(
 \item{signif}{test significance, see \code{\link{regress}}.}
 
 \item{na.rm}{logical or numeric evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
+
+\item{add_cat}{logical, if \code{TRUE} SPI class categoriesare calculated for each month as attribute.}
+
+\item{spi.classes}{data frame with SPI/SPEI classes (see default csv file)}
 
 \item{...}{further arguments}
 }
@@ -72,7 +79,7 @@ spi3 <- spicliva(x=prec,timex=timeprec,spi.scale=3)
 spi1r <- spicliva(x=prec,timex=timeprec,summary_regress=TRUE)
 spi3r <- spicliva(x=prec,timex=timeprec,spi.scale=3,summary_regress=TRUE)
 
-
+spi3_cat <- spicliva(x=prec,timex=timeprec,spi.scale=3,add_cat=TRUE)
 
 
 }

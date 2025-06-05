@@ -12,9 +12,13 @@ NULL
 #' @param summary_regress logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.
 #' @param signif test significance, see \code{\link{regress}}.
 #' @param pthres tail probability thresholds , in case of regression absolute values greater than \code{-qnorm(pthres)} are cut off. 
+#' @param spi.classes data frame with SPI/SPEI classes (see default csv file) 
+#' @param add_cat logical, if \code{TRUE} SPI class categoriesare calculated for each month as attribute. 
 #' @param ... further arguments
 #'
 #' @param ... further arguments
+#'
+#'
 #'
 #' @export
 #'
@@ -22,7 +26,8 @@ NULL
 #' 
 #' @importFrom lmomPi spi.cdf
 #' @importFrom stats qnorm
-#' 
+#' @importFrom utils read.table
+#' @importFrom stringr str_detect
 #' 
 #' @seealso \code{\link{spi.cdf}}
 #' 
@@ -52,11 +57,12 @@ NULL
 #' spi1r <- spicliva(x=prec,timex=timeprec,summary_regress=TRUE)
 #' spi3r <- spicliva(x=prec,timex=timeprec,spi.scale=3,summary_regress=TRUE)
 #' 
-#' 
+#' spi3_cat <- spicliva(x=prec,timex=timeprec,spi.scale=3,add_cat=TRUE)
 #' 
 #' 
   
-spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="monthly_spi",summary_regress=FALSE,pthres=10^-5,signif=0.1,na.rm=0.3,...) {
+spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="monthly_spi",summary_regress=FALSE,pthres=10^-5,signif=0.1,na.rm=0.3,add_cat=FALSE,
+                     spi.classes=read.table(system.file("settings/spi_class.csv",package="terracliva"),header=TRUE,sep=",",comment.char="?"),...) {
   
   
     if (length(x)!=length(timex)) {
@@ -86,6 +92,19 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
      
      names(o) <- "spi%02d_on_%04d_%02d" |> sprintf(spi.scale,year(timex),month(timex))
      
+     
+     if (add_cat) {
+       
+       attr(o,"spi_cat") <- cut(o,breaks=c(spi.classes$min,Inf),labels=spi.classes$name,include.lowest=TRUE)
+       names(attr(o,"spi_cat")) <- names(o)
+       
+       
+     }
+     
+     
+     
+     
+     
      if (summary_regress) {
        thres <- -qnorm(pthres)
        o[o<(-thres)] <- -thres
@@ -96,6 +115,8 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
        o <- c(o,o2)
      
      }
+     
+     
      return(o)
 }
   

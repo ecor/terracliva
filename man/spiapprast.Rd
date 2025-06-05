@@ -11,6 +11,9 @@ spiapprast(
   distrib = "pe3",
   fun = spicliva,
   na.rm = 0.3,
+  add_cat = FALSE,
+  spi.classes = read.table(system.file("settings/spi_class.csv", package = "terracliva"),
+    header = TRUE, sep = ",", comment.char = "?"),
   ...
 )
 }
@@ -24,6 +27,10 @@ spiapprast(
 \item{distrib}{probability distribution function. See \code{\link{pel}}}
 
 \item{fun}{argument passed to \code{\link{apprast}} Default is \code{\link{spicliva}}. See there further information.}
+
+\item{add_cat}{logical, if \code{TRUE} SPI class categoriesare calculated for each month as attribute.}
+
+\item{spi.classes}{data frame with SPI/SPEI classes (see default csv file)}
 }
 \description{
 SPI / SPEI index  (see lmomPi implementation)  Climate Variability Analysis in Spatial Gridded Coverage
@@ -52,6 +59,10 @@ spi3 <- spiapprast(x=dataset_monthly,spi.scale=3)
 
 spi1r <- spiapprast(x=dataset_monthly,summary_regress=TRUE)
 spi3r <- spiapprast(x=dataset_monthly,summary_regress=TRUE,spi.scale=3)
+
+spi3r_cat <- spiapprast(x=dataset_monthly,spi.scale=3,add_cat=TRUE)
+
+
 
 }
 \seealso{
