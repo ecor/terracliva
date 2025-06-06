@@ -61,16 +61,19 @@ spiapprast <- function(x,timex=time(x),index=1,distrib="pe3",fun=spicliva,na.rm=
   
   if (add_cat) {
     spi.classes$ID <- 1:nrow(spi.classes)
-    
+    outb <- out[[str_detect(names(out),"_on_")]]
     rcl <- as.matrix(spi.classes[,c("min","max","ID")])
-    outc <- classify(out[[str_detect(names(out),"_on_")]],rcl=rcl[,c(1,2,3)],include.lowest=TRUE)
-    names(outc) <- names(out[[str_detect(names(out),"_on_")]])
+    outc <- classify(outb,rcl=rcl[,c(1,2,3)],include.lowest=TRUE)
+    
     for (ii in 1:nlyr(outc)) {  
     
       coltab(outc,layer=ii) <- spi.classes[,c("ID","color")]
       levels(outc[[ii]]) <- spi.classes[,c("ID","name","color")]
     }
-   
+    names(outc) <- names(outb)
+    terra::time(outc) <- timex ## EC 20250606
+    outc2 <<- outc
+  
     attr(out,"spi_cat") <- outc
     attr(out,"spi_clasess")  <- spi.classes
 
