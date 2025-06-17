@@ -81,8 +81,9 @@ spiapprast <- function(x,timex=time(x),index=1,distrib="pe3",fun=spicliva,na.rm=
 
   ##terra::time(out) <- timex
   attr(out,"spi.scale") <- list(...)$spi.scale
+  if (is.null(attr(out,"spi.scale"))) attr(out,"spi.scale") <- formals(fun)$spi.scale
   attr(out,"signif") <- list(...)$signif
-  
+  if (is.null(attr(out,"signif"))) attr(out,"signif") <- formals(fun)$signif
      return(out)
 }
   
