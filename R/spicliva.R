@@ -83,8 +83,8 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
      iref <- which(timex %in% timex_ref)
      para  <- pel(x=x[iref],indices=indices[iref],distrib=distrib,
                            spi.scale=spi.scale,check_lmom_validity = check_lmoms)
-     print(para)
-     print(indices)
+    ## print(para)
+    ## print(indices)
      o <- spi.cdf(x=x,indices=indices,para=para,spi.scale=spi.scale)
      ###o <- NULL
      
