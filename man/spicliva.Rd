@@ -18,6 +18,7 @@ spicliva(
   add_cat = FALSE,
   spi.classes = read.table(system.file("settings/spi_class.csv", package = "terracliva"),
     header = TRUE, sep = ",", comment.char = "?"),
+  check_lmoms = TRUE,
   ...
 )
 }
@@ -45,6 +46,8 @@ spicliva(
 \item{add_cat}{logical, if \code{TRUE} SPI class categoriesare calculated for each month as attribute.}
 
 \item{spi.classes}{data frame with SPI/SPEI classes (see default csv file)}
+
+\item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}}}
 
 \item{...}{further arguments}
 }

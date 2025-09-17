@@ -16,6 +16,7 @@ lmcliva(
   add_t = FALSE,
   add_l_cv = FALSE,
   nmom = 4,
+  check_lmoms = TRUE,
   ...
 )
 }
@@ -37,6 +38,8 @@ lmcliva(
 \item{add_t_2, add_t, add_l_cv}{logical, if one of them is \code{TRUE}, \code{L-CV} or \code{t,t_2} ratio is calculated.}
 
 \item{nmom}{see \code{\link[lmom]{samlmu}}}
+
+\item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}}}
 
 \item{...}{further arguments}
 }

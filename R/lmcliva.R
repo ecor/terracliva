@@ -11,13 +11,14 @@ NULL
 #' @param add_t_2,add_t,add_l_cv logical, if one of them is \code{TRUE}, \code{L-CV} or \code{t,t_2} ratio is calculated.
 #' @param summary_regress logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.
 #' @param signif test significance, see \code{\link{regress}}.
+#' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}} 
 #' @param ... further arguments
 #'
 #' @export
 #'
 #' @note \code{x} must have the proper time aggregation for the analysis before the execution of this function.
 #' 
-#' @importFrom lmomPi pel qua cdf
+#' @importFrom lmomPi pel qua cdf are.lmoms.valid
 #' @importFrom stats ks.test
 #' 
 #' 
@@ -41,7 +42,7 @@ NULL
 #'
 
   
-lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary_regress=FALSE,signif=0.1,add_t_2=FALSE,add_t=FALSE,add_l_cv=FALSE,nmom=4,...) {
+lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary_regress=FALSE,signif=0.1,add_t_2=FALSE,add_t=FALSE,add_l_cv=FALSE,nmom=4,check_lmoms=TRUE,...) {
   
     
     
@@ -52,6 +53,14 @@ lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary
        cond_null <- FALSE
      }
      o1 <- samlmu(x,nmom=nmom) 
+     ####
+     if (check_lmoms) {
+       
+       if (!are.lmoms.valid(o1)) o1[] <- as.numeric(NA)
+       
+     }
+     
+     
      ## added EC 20200304
      if (add_t) {
        o1[["t"]] <- o1[["l_2"]]/o1[["l_1"]]
@@ -71,6 +80,7 @@ lmcliva <- function(x,timex,distrib="pe3",rt=c(2,5,10,20,50),na.rm=FALSE,summary
      
      if (length(distrib)==0) distrib <- NA ## 20250303
      if (!is.na(distrib)) {
+     
       o2 <- pel(lmom=o1,distrib=distrib)
       ###
       ## CHECK pelpe3: L-moments invalid

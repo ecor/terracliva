@@ -72,7 +72,7 @@ spiapprast <- function(x,timex=time(x),index=1,distrib="pe3",fun=spicliva,na.rm=
     }
     names(outc) <- names(outb)
     terra::time(outc) <- timex ## EC 20250606
-    outc2 <<- outc
+    ####outc2 <<- outc
   
     attr(out,"spi_cat") <- outc
     attr(out,"spi_clasess")  <- spi.classes

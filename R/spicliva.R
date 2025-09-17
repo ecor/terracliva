@@ -14,6 +14,7 @@ NULL
 #' @param pthres tail probability thresholds , in case of regression absolute values greater than \code{-qnorm(pthres)} are cut off. 
 #' @param spi.classes data frame with SPI/SPEI classes (see default csv file) 
 #' @param add_cat logical, if \code{TRUE} SPI class categoriesare calculated for each month as attribute. 
+#' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}} 
 #' @param ... further arguments
 #'
 #' @param ... further arguments
@@ -62,7 +63,7 @@ NULL
 #' 
   
 spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="monthly_spi",summary_regress=FALSE,pthres=10^-5,signif=0.1,na.rm=0.3,add_cat=FALSE,
-                     spi.classes=read.table(system.file("settings/spi_class.csv",package="terracliva"),header=TRUE,sep=",",comment.char="?"),...) {
+                     spi.classes=read.table(system.file("settings/spi_class.csv",package="terracliva"),header=TRUE,sep=",",comment.char="?"),check_lmoms=TRUE,...) {
   
   
     if (length(x)!=length(timex)) {
@@ -81,7 +82,9 @@ spicliva <- function(x,timex,timex_ref=timex,distrib="pe3",spi.scale=1,index="mo
   
      iref <- which(timex %in% timex_ref)
      para  <- pel(x=x[iref],indices=indices[iref],distrib=distrib,
-                           spi.scale=spi.scale)
+                           spi.scale=spi.scale,check_lmom_validity = check_lmoms)
+     print(para)
+     print(indices)
      o <- spi.cdf(x=x,indices=indices,para=para,spi.scale=spi.scale)
      ###o <- NULL
      
