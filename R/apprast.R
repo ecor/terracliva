@@ -11,7 +11,7 @@ NULL
 #' @param filename,overwrite,na.rm,... further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}. See also \code{\link{writeRaster}}.
 #' 
 #' 
-#' @importFrom terra ext crop mosaic sprc
+#' @importFrom terra ext crop mosaic sprc rast sds
 #' @importFrom magrittr  %>% 
 #' @importFrom terra app nlyr tapp time
 #' @importFrom lmom samlmu
@@ -68,6 +68,23 @@ NULL
 #' (out_monthly_pel_-out_monthly_pel2) |> abs() |> max() 
 apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart,nparty=npart,filename="",overwrite=FALSE,...){
   
+  
+  
+  if (is.list(x)) x <- rast(sds(x))
+    
+  #   {
+  #   
+  #   if (!is.null(names(x))) for (it in names(x)) {
+  #     print(names(x[[it]]))
+  #     names(x[[it]]) <- paste0(it,names(x[[it]]))
+  #   }
+  #   
+  #   x00 <<- x
+  #   
+  #   x <- rast(x)
+  #   x01 <<- x
+  #   
+  # }  
   # warning \code{x} must have the proper time aggregation for the analysis before the execution of this function.
   ##out <- tapp(x,indexx,fun=samlmu)
   ##  
