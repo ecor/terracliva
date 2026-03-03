@@ -6,9 +6,10 @@
 \usage{
 lmcliva(
   x,
-  timex,
+  timex = 1:length(x),
   distrib = "pe3",
   rt = c(2, 5, 10, 20, 50),
+  pcts = NULL,
   na.rm = FALSE,
   summary_regress = FALSE,
   signif = 0.1,
@@ -28,6 +29,8 @@ lmcliva(
 \item{distrib}{probability distribution function. See \code{\link{pel}}}
 
 \item{rt}{return periods for deficit and excess}
+
+\item{pcts}{variation percentages: default os \code{NULL}, otherwise can be like \code{pcts=c(5,10,15,20,50)}}
 
 \item{na.rm}{a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
 
@@ -64,6 +67,7 @@ prec <- as.numeric(dataset_yearly[100])
 
 out_yearly <- lmcliva(prec)
 out_yearly <- lmcliva(prec,distrib="pe3")
+out_yearly <- lmcliva(prec,distrib="pe3",pcts=c(5,10,15,20,50))
 ks.test(x=prec,y=cdf,distrib="pe3",para=out_yearly[c(5,6,7)])
 
 

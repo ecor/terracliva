@@ -20,6 +20,8 @@ NULL
 #' 
 #' @examples
 #' 
+#' 
+#' \donttest{
 #' library(magrittr)
 #' library(terra)
 #' library(lmomPi)
@@ -46,7 +48,7 @@ NULL
 #' out_monthly_ <- lmapprast(dataset_monthly,index="monthly",distrib="pe3",mm=c(12,1,2,3))
 #' 
 #' 
-#' 
+#' }
 #'
 lmapprast <- function(x,index=1,distrib="pe3",fun=lmcliva,na.rm=TRUE,...){
   

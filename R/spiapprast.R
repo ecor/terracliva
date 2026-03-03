@@ -25,6 +25,8 @@ NULL
 #' 
 #' @examples
 #' 
+#' 
+#' \donttest{
 #' library(magrittr)
 #' library(terra)
 #' library(lmomPi)
@@ -47,7 +49,7 @@ NULL
 #'
 #' spi3r_cat <- spiapprast(x=dataset_monthly,spi.scale=3,add_cat=TRUE)
 #'
-#'
+#'}
 #'
   
 spiapprast <- function(x,timex=time(x),index=1,distrib="pe3",fun=spicliva,na.rm=0.3,

@@ -8,6 +8,7 @@
 hwmidcliva(
   x,
   timex,
+  timex_ref = timex,
   timex_sim = timex,
   return_vector = TRUE,
   cold = FALSE,
@@ -25,7 +26,9 @@ cwmidcliva(...)
 
 \item{timex}{corresponding vector of dates for \code{x}}
 
-\item{timex_sim}{corresponding vector of dates in which heat/cold wave magnitude index is calculated}
+\item{timex_ref}{corresponding vector of dates on which heat/cold wave magnitude index is referenced}
+
+\item{timex_sim}{corresponding vector of dates in which heat/cold wave magnitude index is calculated (simulated)}
 
 \item{return_vector}{logical. If \code{TRUE} function returns a vector.}
 
@@ -68,6 +71,10 @@ dyRangeSelector()
 o_hw_regress <- hwmidcliva(x=tmax,timex=timex,summary_regress=TRUE)
 o_hw6 <- hwmidcliva(x=tmax,timex=timex,start_month=6)
 
+timex_sim <- timex[year(timex) \%in\% 2009:2015]
+timex_ref <- timex[year(timex) \%in\% 1981:2008]
+o_hw_sim <- hwmidcliva(x=tmax,timex=timex,timex_sim=timex_sim,summary_regress=TRUE)
+o_hw_ref <- hwmidcliva(x=tmax,timex_ref=timex_ref,timex_sim=timex_sim,summary_regress=TRUE)
 ## COLD WAVE 
 tmin_dataset_path <- system.file("ext_data/tmin",package="terracliva")
 tmin_dataset_daily <- "\%s/daily/chirts_daily_goma_tmin_\%04d.grd" \%>\% 

@@ -24,6 +24,9 @@ NULL
 #' 
 #' @examples
 #' 
+#' 
+#' \donttest{
+#' 
 #' library(magrittr)
 #' library(terra)
 #' library(lmomPi)
@@ -66,6 +69,9 @@ NULL
 #'
 #'
 #' (out_monthly_pel_-out_monthly_pel2) |> abs() |> max() 
+#' 
+#' 
+#' }
 apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart,nparty=npart,filename="",overwrite=FALSE,...){
   
   
@@ -174,6 +180,7 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart
     if (length(mm)==0) mm=1:12
     x <- x[[which(index %in% mm)]]
     index <- lubridate::month(terra::time(x)) %>% sprintf(fmt="M%02d")
+   
   }
   if (length(index)==nlyr(x) & nlyr(x)>1) {
     

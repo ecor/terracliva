@@ -18,6 +18,7 @@ NULL
 #' 
 #' @examples
 #' 
+#' \donttest{
 #' library(terra)
 #' lmom_chirps <- system.file("ext_data/lm_chirps_2000_2024.tif",package="terracliva")  |> rast()
 #' lmom_mswep  <- system.file("ext_data/lm_mswep_2000_2024.tif",package="terracliva")  |> rast()
@@ -25,6 +26,8 @@ NULL
 #' out <- lmpdistapprast(la=lmom_chirps,lb=lmom_mswep,prefix="monthly")
 #'
 #' ##plot(Ou<0.#)
+#' }
+#' 
 #' 
 
 

@@ -40,6 +40,8 @@ SPI / SPEI index  (see lmomPi implementation)  Climate Variability Analysis in S
 }
 \examples{
 
+
+\donttest{
 library(magrittr)
 library(terra)
 library(lmomPi)
@@ -62,7 +64,7 @@ spi3r <- spiapprast(x=dataset_monthly,summary_regress=TRUE,spi.scale=3)
 
 spi3r_cat <- spiapprast(x=dataset_monthly,spi.scale=3,add_cat=TRUE)
 
-
+}
 
 }
 \seealso{

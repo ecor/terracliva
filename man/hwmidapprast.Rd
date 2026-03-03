@@ -32,7 +32,7 @@ tmax_dataset_path <- system.file("ext_data/tmax",package="terracliva")
 tmax_dataset_daily <- "\%s/daily/chirts_daily_goma_tmax_\%04d.grd" \%>\% 
 sprintf(tmax_dataset_path,years) \%>\% rast()
 
-
+\donttest{
 
 o_hw <- hwmidapprast(tmax_dataset_daily)
 o_hw_regress <- hwmidapprast(tmax_dataset_daily,summary_regress=TRUE)
@@ -44,7 +44,7 @@ sprintf(tmin_dataset_path,years) \%>\% rast()
 
 o_cw <- cwmidapprast(tmin_dataset_daily)
 
-
+}
 }
 \seealso{
 \code{\link{hwmidcliva}},\code{\link{cwmidcliva}},\code{\link{hwmid}}

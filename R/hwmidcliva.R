@@ -6,7 +6,8 @@ NULL
 #' 
 #' @param x time series (e.g. daily maximum teperature)
 #' @param timex corresponding vector of dates for \code{x}
-#' @param timex_sim corresponding vector of dates in which heat/cold wave magnitude index is calculated
+#' @param timex_ref corresponding vector of dates on which heat/cold wave magnitude index is referenced
+#' @param timex_sim corresponding vector of dates in which heat/cold wave magnitude index is calculated (simulated)
 #' @param cold logical cold wave option 
 #' @param start_month starting month of the year. Default is 1. (TO TEST) 
 #' @param return_vector logical. If \code{TRUE} function returns a vector.
@@ -38,13 +39,17 @@ NULL
 #' timex <- time(tmax_dataset_daily)
 #' 
 #' 
-#'
+#' 
 #' o_hw <- hwmidcliva(x=tmax,timex=timex)
 #' data.frame(time = as.numeric(names(o_hw)), o_hw) %>% dygraph() %>% 
 #' dyRangeSelector()
 #' o_hw_regress <- hwmidcliva(x=tmax,timex=timex,summary_regress=TRUE)
 #' o_hw6 <- hwmidcliva(x=tmax,timex=timex,start_month=6)
-#'
+#' 
+#' timex_sim <- timex[year(timex) %in% 2009:2015]
+#' timex_ref <- timex[year(timex) %in% 1981:2008]
+#' o_hw_sim <- hwmidcliva(x=tmax,timex=timex,timex_sim=timex_sim,summary_regress=TRUE)
+#' o_hw_ref <- hwmidcliva(x=tmax,timex_ref=timex_ref,timex_sim=timex_sim,summary_regress=TRUE)
 #' ## COLD WAVE 
 #' tmin_dataset_path <- system.file("ext_data/tmin",package="terracliva")
 #' tmin_dataset_daily <- "%s/daily/chirts_daily_goma_tmin_%04d.grd" %>% 
@@ -83,7 +88,7 @@ NULL
 
 
 
-hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,start_month=1,summary_regress=FALSE,hwmid_thres=4,signif=0.1,...) {
+hwmidcliva <- function(x,timex,timex_ref=timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,start_month=1,summary_regress=FALSE,hwmid_thres=4,signif=0.1,...) {
   
   o <- NULL
   ###
@@ -94,7 +99,7 @@ hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,sta
       stop(msg)
   }
   
-  yTref <- year(timex[1])
+  
   
   #### year can start from the month different from 1 ## EC 20240311
   start_x <- which(month(timex)==start_month)[1]
@@ -107,8 +112,8 @@ hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,sta
   
   # print(head(x))
   # print(head(timex))
-  Tref <- x
-  
+  Tref <- x[which(timex %in% timex_ref)]
+  yTref <- year(timex_ref[1])
   ###
   Temp <- x[which(timex %in% timex_sim)]
   yTemp <- year(timex_sim[1])
@@ -129,7 +134,7 @@ hwmidcliva <- function(x,timex,timex_sim=timex,return_vector=TRUE,cold=FALSE,sta
   o <- hwmid(yTref=yTref,Tref=Tref,yTemp=yTemp,Temp)
   ### PROCESS HWMID 
   if (return_vector) {
-    o <- o$hwmid[,1]
+  
     if (cond_na) o[] <- as.numeric(NA)
     names(o) <- yTemp+1:length(o)-1
     

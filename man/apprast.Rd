@@ -36,6 +36,9 @@ Computes a function on multi-layer raster, specially thought for Climate Variabi
 }
 \examples{
 
+
+\donttest{
+
 library(magrittr)
 library(terra)
 library(lmomPi)
@@ -78,4 +81,7 @@ out_monthly_pel2 <- apprast(dataset_monthly,fun=funpel,index="monthly",mm=3:5,np
 
 
 (out_monthly_pel_-out_monthly_pel2) |> abs() |> max() 
+
+
+}
 }

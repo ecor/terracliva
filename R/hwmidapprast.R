@@ -23,7 +23,7 @@ NULL
 #' tmax_dataset_daily <- "%s/daily/chirts_daily_goma_tmax_%04d.grd" %>% 
 #' sprintf(tmax_dataset_path,years) %>% rast()
 #'
-#' 
+#' \donttest{
 #'
 #' o_hw <- hwmidapprast(tmax_dataset_daily)
 #' o_hw_regress <- hwmidapprast(tmax_dataset_daily,summary_regress=TRUE)
@@ -35,7 +35,7 @@ NULL
 #'
 #' o_cw <- cwmidapprast(tmin_dataset_daily)
 #' 
-#' 
+#' }
 hwmidapprast <- function(x,timex=time(x),fun=hwmidcliva,index=1,...){
   
  
