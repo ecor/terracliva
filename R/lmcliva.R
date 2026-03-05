@@ -120,26 +120,26 @@ lmcliva <- function(x,timex=1:length(x),distrib="pe3",rt=c(2,5,10,20,50),pcts=NU
       names(v_pcts_def) <- sprintf("prob_def_%03d",pcts)
       
       
-      #otrdef <- cdf(x=)
+      #ortdef <- cdf(x=)
       oprobexc <- cdf(x=v_pcts_exc,para=o2[nn],distrib=distrib)
       names(oprobexc) <- names(v_pcts_exc)
       oprobdef <- cdf(x=v_pcts_def,para=o2[nn],distrib=distrib)
       names(oprobdef) <- names(v_pcts_def) 
       ###
-      ortexc <- 1-1/oprobexc ## return period of an excess equal or greater than a value
-      ortdef <- 1/ortdef ## return period of a deficit equal or greater than a value
+      ortexc <- 1/(1 - oprobexc) ## return period of an excess equal or greater than a value
+      ortdef <- 1/oprobdef ## return period of a deficit equal or greater than a value
       names(ortexc) <- sprintf("rt_of_exc_%03d",pcts)
       names(ortdef) <- sprintf("rt_of_def_%03d",pcts)
       } else {
         oprobexc <- NULL
         oprobdef <- NULL
-        otrexc <- NULL
-        otrdef <- NULL
+        ortexc <- NULL
+        ortdef <- NULL
       }
       
       ##
       ##
-      o2 <- c(o2,odefs,oexcs,oprobexc,oprobdef,otrexc,otrdef)
+      o2 <- c(o2,odefs,oexcs,oprobexc,oprobdef,ortexc,ortdef)
       names(o2) <- paste(distrib,names(o2),sep="_")
       o <- c(o1,o2)
       
