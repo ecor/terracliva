@@ -44,7 +44,7 @@ NULL
 #'
 
   
-lmcliva <- function(x,timex=1:length(x),distrib="pe3",rt=c(2,5,10,20,50),pcts=NULL,na.rm=FALSE,summary_regress=FALSE,signif=0.1,add_t_2=FALSE,add_t=FALSE,add_l_cv=FALSE,nmom=4,check_lmoms=TRUE,...) {
+lmcliva <- function(x,timex=1:length(x),distrib="pe3",rt=c(2,5,10,20,50),pcts=NULL,na.rm=FALSE,summary_regress=FALSE,signif=0.1,add_t_2=FALSE,add_t=FALSE,add_l_cv=FALSE,return_as_precipitation=TRUE,nmom=4,check_lmoms=TRUE,...) {
   
     
     
@@ -108,6 +108,18 @@ lmcliva <- function(x,timex=1:length(x),distrib="pe3",rt=c(2,5,10,20,50),pcts=NU
       odefsa <- odefs
       oexcs <- qua(para=o2[nn],distrib=distrib,f=fexcs) ## precipitation that can be equal or greater every rt years averagely
       names(oexcs) <- sprintf("exc_rt_%03d",rt)
+      
+      if(!return_as_precipitation)
+      {
+        odefs = o1[["l_1"]]-odefs
+        oexcs = oexcs-o1[["l_1"]]
+      }
+      ########quantiles percentages (LUIGI)
+      odefsperc = odefs/o1[["l_1"]] * 100 
+      oexcsperc = oexcs/o1[["l_1"]] * 100
+      names(odefsperc) <- sprintf("def_perc_rt_%03d",rt) 
+      names(oexcsperc) <- sprintf("exc_perc_rt_%03d",rt)
+      ########
       ##
       ##qua(x=xq,distrib=distrib,para=o2[mm])
       if (is.null(pcts)) pcts <- NA 
@@ -139,7 +151,8 @@ lmcliva <- function(x,timex=1:length(x),distrib="pe3",rt=c(2,5,10,20,50),pcts=NU
       
       ##
       ##
-      o2 <- c(o2,odefs,oexcs,oprobexc,oprobdef,ortexc,ortdef)
+      # o2 <- c(o2,odefs,oexcs,oprobexc,oprobdef,ortexc,ortdef)
+      o2 <- c(o2,odefs,oexcs,odefsperc,oexcsperc,oprobdef,oprobexc,ortdef,ortexc)   #LUIGI
       names(o2) <- paste(distrib,names(o2),sep="_")
       o <- c(o1,o2)
       

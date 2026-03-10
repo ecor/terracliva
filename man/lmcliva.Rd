@@ -16,6 +16,7 @@ lmcliva(
   add_t_2 = FALSE,
   add_t = FALSE,
   add_l_cv = FALSE,
+  return_as_precipitation = TRUE,
   nmom = 4,
   check_lmoms = TRUE,
   ...
