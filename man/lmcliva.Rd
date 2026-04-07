@@ -41,6 +41,8 @@ lmcliva(
 
 \item{add_t_2, add_t, add_l_cv}{logical, if one of them is \code{TRUE}, \code{L-CV} or \code{t,t_2} ratio is calculated.}
 
+\item{return_as_precipitation}{logical value . If it is \code{TRUE} deficit and excess are expressed as precipitation/rainfall values, if it is \code{FALSE}  they are expresses as differences from the mean value.}
+
 \item{nmom}{see \code{\link[lmom]{samlmu}}}
 
 \item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}}}

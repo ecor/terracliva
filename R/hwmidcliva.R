@@ -134,7 +134,7 @@ hwmidcliva <- function(x,timex,timex_ref=timex,timex_sim=timex,return_vector=TRU
   o <- hwmid(yTref=yTref,Tref=Tref,yTemp=yTemp,Temp)
   ### PROCESS HWMID 
   if (return_vector) {
-  
+    o <- o$hwmid[,1] 
     if (cond_na) o[] <- as.numeric(NA)
     names(o) <- yTemp+1:length(o)-1
     

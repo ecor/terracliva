@@ -14,7 +14,7 @@ NULL
 #' @param signif test significance, see \code{\link{regress}}.
 #' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}} 
 #' @param ... further arguments
-#'
+#' @param return_as_precipitation logical value . If it is \code{TRUE} deficit and excess are expressed as precipitation/rainfall values, if it is \code{FALSE}  they are expresses as differences from the mean value. 
 #' @export
 #'
 #' @note \code{x} must have the proper time aggregation for the analysis before the execution of this function.
