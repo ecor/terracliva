@@ -5,7 +5,14 @@
 \alias{cwmidapprast}
 \title{Heat and Cold waves analysis in Spatial Gridded Coverage}
 \usage{
-hwmidapprast(x, timex = time(x), fun = hwmidcliva, index = 1, ...)
+hwmidapprast(
+  x,
+  timex = time(x),
+  fun = hwmidcliva,
+  index = 1,
+  start_month = "default",
+  ...
+)
 
 cwmidapprast(x, timex = time(x), fun = cwmidcliva, index = 1, ...)
 }
@@ -16,7 +23,7 @@ cwmidapprast(x, timex = time(x), fun = cwmidcliva, index = 1, ...)
 
 \item{index, fun}{further arguments passed to \code{\link{apprast}}}
 
-\item{...}{further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}, \code{\link{apprast}}(then also \code{\link{writeRaster}})}
+\item{start_month, ...}{further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}, \code{\link{apprast}}(then also \code{\link{writeRaster}})}
 }
 \description{
 Heat and Cold waves analysis in Spatial Gridded Coverage

@@ -14,6 +14,8 @@ apprast(
   npartx = npart,
   nparty = npart,
   filename = "",
+  tempdir = NULL,
+  tile_formatter = "tile_\%s_\%04d_\%04d.grd",
   overwrite = FALSE,
   ...
 )
@@ -30,6 +32,10 @@ apprast(
 \item{npart, npartx, nparty}{number of partitions along sides.}
 
 \item{filename, overwrite, na.rm, ...}{further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}. See also \code{\link{writeRaster}}.}
+
+\item{tempdir}{working directory path for temporary files (e.g. partition tiles)}
+
+\item{tile_formatter}{formatter used for temporary files (e.g. partition tiles)}
 }
 \description{
 Computes a function on multi-layer raster, specially thought for Climate Variability Analysis in Spatial Gridded Coverage

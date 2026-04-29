@@ -4,7 +4,14 @@
 \alias{regress}
 \title{Correlation and Mann-Kendall correlation test}
 \usage{
-regress(x, time = NULL, signif = 0.1, na.rm = 0.3)
+regress(
+  x,
+  time = NULL,
+  signif = 0.1,
+  na.rm = 0.3,
+  frequency = NA,
+  formatter = "M\%02d"
+)
 }
 \arguments{
 \item{x}{time series (vector)}
@@ -14,6 +21,10 @@ regress(x, time = NULL, signif = 0.1, na.rm = 0.3)
 \item{signif}{test significance}
 
 \item{na.rm}{logical or numeric evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code.}
+
+\item{frequency}{integer specifying the frequency of the time series \code{x} (e.g., 12 for monthly data, 365 for daily data). When \code{x} is monthly (frequency = 12), the function performs separate regressions for each month.}
+
+\item{formatter}{character used in case of \code{frequency>0}}
 }
 \description{
 Correlation and Mann-Kendall correlation test
@@ -28,6 +39,10 @@ print(time)
 x <- rnorm(length(time))
 out <- regress(x=x,time=time)
 
-
+start1 <- start
+end1 <- start1+years(30)
+timex1 <- seq(from=start1,to=end1,by="day")
+x1 <- rnorm(length(timex1))
+out1 <- regress(x=x1,time=timex1,frequency=12)
 
 }

@@ -8,6 +8,8 @@ NULL
 #' @param index see \code{\link{app}}. It can be set equal to \code{"monthly"}
 #' @param mm values of months selects for analyis with \code{fun}. Default is \code{1:12} , it is used in case \code{index=="monthly"} 
 #' @param npart,npartx,nparty number of partitions along sides.
+#' @param tempdir working directory path for temporary files (e.g. partition tiles)
+#' @param tile_formatter formatter used for temporary files (e.g. partition tiles)  
 #' @param filename,overwrite,na.rm,... further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}. See also \code{\link{writeRaster}}.
 #' 
 #' 
@@ -72,7 +74,7 @@ NULL
 #' 
 #' 
 #' }
-apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart,nparty=npart,filename="",overwrite=FALSE,...){
+apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart,nparty=npart,filename="",tempdir=NULL,tile_formatter="tile_%s_%04d_%04d.grd",overwrite=FALSE,...){
   
   
   
@@ -100,8 +102,18 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart
   
   if (cond_part) {
      
+    
+     if (is.null(tempdir)) tempdir=NA
+     if (tempdir=="") tempdir=NA
+     
+     if (!is.na(tempdir)){
+       
+       fftemp <- list.files(tempdir,full.names = TRUE,recursive=TRUE)
+       offtemp <- fftemp |> lapply(file.remove)
+     }
      eem <- ext(x)
      out0 <- list()
+     
      for (ix in 1:npartx){
        out0[[ix]] <- list()
        for (iy in 1:nparty) {
@@ -112,11 +124,23 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart
         ee$ymin <- (iy-1)*(eem$ymax-eem$ymin)/nparty+eem$ymin
         ee$ymax <- (iy)*(eem$ymax-eem$ymin)/nparty+eem$ymin
         
-        x_crop <- crop(x,y=ee)
         
         
+        
+        print(tempdir)
+       
+        if ((is.na(tempdir))) {
+          tile_filename=""
+          tile_input_filename=""
+        } else {
+          tile_filename=paste(tempdir,tile_formatter,sep="/") |> sprintf("output",ix,iy)
+          tile_input_filename=paste(tempdir,tile_formatter,sep="/") |> sprintf("input",ix,iy)
+        }
+        print("app")
+        print(tile_filename)
+        x_crop <- crop(x,y=ee,filename=tile_input_filename,overwrite=overwrite)
         out0[[ix]][[iy]] <- apprast(x_crop,index=index,fun=fun,
-                                    mm=mm,na.rm=na.rm,npart=1,...)
+                                    mm=mm,na.rm=na.rm,npart=1,filename=tile_filename,overwrite=overwrite,...)
         
         
          
