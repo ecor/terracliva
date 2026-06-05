@@ -9,7 +9,10 @@ See  manual for further details.
 ```
 
 ## Installiation from Github repo through Gituh token 
+remotes::install_github("ecor/lmomPi")
+remotes::install_github("ecor/terracliva")
 
+## OBSOLETE 
 remotes::install_github("ecor/terracliva",auth_token="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")
 ```
 

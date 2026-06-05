@@ -103,7 +103,7 @@ apprast <- function(x,index=1,fun=samlmu,mm=1:12,na.rm=TRUE,npart=1,npartx=npart
   if (cond_part) {
      
     
-     if (is.null(tempdir)) tempdir=NA
+     if (is.null(tempdir)) tempdir=""
      if (tempdir=="") tempdir=NA
      
      if (!is.na(tempdir)){

@@ -5,12 +5,13 @@ Type: Package
 Authors@R: c(person(given="Emanuele",family="Cordano",role = c("aut","cre","ctb"),email = "emanuele.cordano@gmail.com"),
   person(given="Luigi",family="Cattaneo",role = c("ctb"),email = "luigi.cattaneo@ext.ec.europa.eu"))
 Description: This package contains Climate Variability Analysis tools with spatio-temporal gridded coverages.
-Version: 0.2.4
-Date: 2026-04-21
+Version: 0.2.7
+Date: 2026-06-05
 Repository: CRAN
 Depends: lmomPi,terra,magrittr,lmom,R (>= 3.5.0)
 Imports: lubridate,extRemes,trend,stringr
-Suggests: dygraphs
+Suggests: dygraphs,knitr,rmarkdown
+VignetteBuilder: knitr
 RoxygenNote: 7.3.2
 NeedsCompilation: no
 Packaged: 2017-11-28 15:32:55 UTC; cordaem

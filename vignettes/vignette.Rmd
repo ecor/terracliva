@@ -1,0 +1,59 @@
+---
+title: Introduction to the terracliva Package
+author: "Emanuele Cordano"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the terracliva Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# terracliva
+
+An R package for Climate Variability Analysis with spatio-temporal gridded coverages
+
+See  manual for further details.
+
+## Installation from R console 
+
+```
+
+## Installiation from Github repo through Gituh token 
+remotes::install_github("ecor/lmomPi")
+remotes::install_github("ecor/terracliva")
+
+```
+
+## Usage from R console 
+
+See usage for main package functions to asses climata variability indices:
+
+```
+library(terracliva)
+
+help(package="terracliva")
+
+help("lmcliva")
+
+help("dryspellcliva")
+
+help("apprast")
+
+help("lmrast")
+
+help("dryspellrast")
+
+
+
+```
+Help documentation is recomended for a quick start to use the package.
+

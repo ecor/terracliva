@@ -8,13 +8,14 @@ NULL
 #' @param signif test significance
 #' @param frequency integer specifying the frequency of the time series \code{x} (e.g., 12 for monthly data, 365 for daily data). When \code{x} is monthly (frequency = 12), the function performs separate regressions for each month.
 #' @param formatter character used in case of \code{frequency>0} 
+#' @param return_as_vector logical. Functions return a vector. 
 #' @param na.rm logical or numeric evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
 #' @export
 #'
 #'
 #' @importFrom stats lm quantile
 #' @importFrom trend sens.slope
-#'
+#' @importFrom stringr str_replace
 #'
 #' @examples 
 #' 
@@ -34,7 +35,7 @@ NULL
 #'
 
 
-regress <- function(x,time=NULL,signif=0.1,na.rm=0.3,frequency=NA,formatter="M%02d") {  
+regress <- function(x,time=NULL,signif=0.1,na.rm=0.3,frequency=NA,formatter="M%02d",return_as_vector=TRUE) {  
   if (is.null(frequency)) frequency <- NA
   if (!is.na(frequency) & (frequency>1)) {
     out <- list()
@@ -43,13 +44,17 @@ regress <- function(x,time=NULL,signif=0.1,na.rm=0.3,frequency=NA,formatter="M%0
       xm <- x[mm==m]
       timem <- time
       if (length(timem)>0) timem <- time[mm==m]
-      out[[sprintf(formatter,m)]] <- regress(xm,timem,signif=signif,na.rm=na.rm,frequency=NA)
+      out[[sprintf(formatter,m)]] <- terracliva::regress(xm,timem,signif=signif,na.rm=na.rm,frequency=NA)
       
       
       
       
     }
-    
+    if (return_as_vector) {
+      out <- unlist(out,use.names=TRUE) 
+      names(out) <- names(out) |> str_replace("[.]","_")
+      
+    }
     return(out)
   }
   

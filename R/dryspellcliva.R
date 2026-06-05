@@ -83,7 +83,7 @@ dryspellcliva <- function(x,timex,valmin=1,months=c(12,1,2,3),dryspell_starts_in
   
 
  
-
+  months <- set_months_sequential(months) ### 20260605
   ##20240719 x_global <<- x 
   
   ##20240719 timex_global <<- timex

@@ -10,7 +10,8 @@ regress(
   signif = 0.1,
   na.rm = 0.3,
   frequency = NA,
-  formatter = "M\%02d"
+  formatter = "M\%02d",
+  return_as_vector = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ regress(
 \item{frequency}{integer specifying the frequency of the time series \code{x} (e.g., 12 for monthly data, 365 for daily data). When \code{x} is monthly (frequency = 12), the function performs separate regressions for each month.}
 
 \item{formatter}{character used in case of \code{frequency>0}}
+
+\item{return_as_vector}{logical. Functions return a vector.}
 }
 \description{
 Correlation and Mann-Kendall correlation test
