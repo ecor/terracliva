@@ -61,14 +61,17 @@ regress <- function(x,time=NULL,signif=0.1,na.rm=0.3,frequency=NA,formatter="M%0
   
   if (is.numeric(na.rm)) na.rm <- length(is.na(x))<=na.rm*length(x)
   
-  if (na.rm) x <- x[!is.na(x)]
+  
   if (is.null(time)) time=(1:length(x))-1
   
   
-  time=(1:length(x))-1
-  
-  
-  
+  #time=(1:length(x))-1
+  ## REGRESS UPDATE
+  if (na.rm) {
+    x <- x[!is.na(x)]
+    time <- time[!is.na(x)]
+  }
+  ##
   if (all(is.na(x))) {
     x <- array(-0.0001,length(x))
     condNA <- TRUE
@@ -109,13 +112,16 @@ regress <- function(x,time=NULL,signif=0.1,na.rm=0.3,frequency=NA,formatter="M%0
   out <- c(pvalue=pvalue,coeff=coeff,stdrerror=stderror,rsquared=rsquared)
   
   ### Mann-Kendall Test
+  if (length(x)<3) condNA1 <- TRUE
+  
   if (condNA1) {
     
     out <- c(out,senslope=NA,pvalue_mk=NA)
     
   } else { 
     
-    sens <- sens.slope(x)
+    sens <- sens.slope(x,conf.level=1-signif)
+    
     senslope=sens$estimate
     pvalue_mk <- sens$p.value
     senslope[pvalue_mk>signif | condNA] <- NA

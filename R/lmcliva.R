@@ -4,7 +4,7 @@ NULL
 #' 
 #' @param x time series (e.g. precipitation)
 #' @param timex corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month
-#' @param distrib probability distribution function. See \code{\link{pel}}
+#' @param distrib probability distribution function. See \code{\link[lmomPi]{pel}}
 #' @param rt return periods for deficit and excess
 #' @param pcts variation percentages: default os \code{NULL}, otherwise can be like \code{pcts=c(5,10,15,20,50)}
 #' @param na.rm a logical evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
@@ -12,7 +12,7 @@ NULL
 #' @param add_t_2,add_t,add_l_cv logical, if one of them is \code{TRUE}, \code{L-CV} or \code{t,t_2} ratio is calculated.
 #' @param summary_regress logical value. Default is \code{FALSE} , if \code{TRUE} summary with \code{\link{regress}} is shown.
 #' @param signif test significance, see \code{\link{regress}}.
-#' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}} 
+#' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link[lmomPi]{are.lmoms.valid}} 
 #' @param ... further arguments
 #' @param return_as_precipitation logical value . If it is \code{TRUE} deficit and excess are expressed as precipitation/rainfall values, if it is \code{FALSE}  they are expresses as differences from the mean value. 
 #' @export

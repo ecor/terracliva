@@ -23,7 +23,7 @@ cwmidapprast(x, timex = time(x), fun = cwmidcliva, index = 1, ...)
 
 \item{index, fun}{further arguments passed to \code{\link{apprast}}}
 
-\item{start_month, ...}{further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}, \code{\link{apprast}}(then also \code{\link{writeRaster}})}
+\item{start_month, ...}{further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}, \code{\link{apprast}}(then also \code{\link[terra]{writeRaster}})}
 }
 \description{
 Heat and Cold waves analysis in Spatial Gridded Coverage
@@ -54,5 +54,5 @@ o_cw <- cwmidapprast(tmin_dataset_daily)
 }
 }
 \seealso{
-\code{\link{hwmidcliva}},\code{\link{cwmidcliva}},\code{\link{hwmid}}
+\code{\link{hwmidcliva}},\code{\link{cwmidcliva}},\code{\link[extRemes]{hwmid}}
 }

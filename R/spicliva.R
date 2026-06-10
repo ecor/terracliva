@@ -5,7 +5,7 @@ NULL
 #' @param x time series (e.g. monthly precipitation)
 #' @param timex corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month
 #' @param timex_ref corresponding vector of dates in which probability distribution (with its parameters) is estimated
-#' @param distrib probability distribution function. See \code{\link{pel}}
+#' @param distrib probability distribution function. See \code{\link[lmomPi]{pel}}
 #' @param spi.scale integer value or \code{NA}. If it greater than 1 \code{x} is filtered with the sum of a generic element of \code{x} and the previous \code{spi.scale-1} ones (e.g. SPI-3,SPI-6, etc. ). Default is \code{NA} (no filtering) which is equivalent to \code{spi.scale=1}.
 #' @param index argument it is set equal to \code{"monthly"}
 #' @param na.rm logical or numeric evaluating to \code{TRUE} or \code{FALSE} or something else indicating whether or how many NA values should be stripped before the computation proceeds. Details in function code. 
@@ -14,7 +14,7 @@ NULL
 #' @param pthres tail probability thresholds , in case of regression absolute values greater than \code{-qnorm(pthres)} are cut off. 
 #' @param spi.classes data frame with SPI/SPEI classes (see default csv file) 
 #' @param add_cat logical, if \code{TRUE} SPI class categoriesare calculated for each month as attribute. 
-#' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}} 
+#' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link[lmomPi]{are.lmoms.valid}} 
 #' @param ... further arguments
 #'
 #' @param ... further arguments
@@ -30,7 +30,7 @@ NULL
 #' @importFrom utils read.table
 #' @importFrom stringr str_detect
 #' 
-#' @seealso \code{\link{spi.cdf}}
+#' @seealso \code{\link[lmomPi]{spi.cdf}}
 #' 
 #' 
 #' @examples

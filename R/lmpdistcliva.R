@@ -4,7 +4,7 @@ NULL
 #' 
 #' @param la,x  first set of L-moments  or L-moment ratios
 #' @param lb  second set of L-moments  or L-moment ratios
-#' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}}
+#' @param check_lmoms logical. If it is \code{TRUE}, L-moments are checked through \code{\link[lmomPi]{are.lmoms.valid}}
 #' @param p exponent. Default is 2 (euclidean distance)
 #' @param nnmom names of l-moment ratios used to define the Lp space.
 #' @param add_t logical. If \code{TRUE} \code{t} is calculated. See default 

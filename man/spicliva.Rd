@@ -29,7 +29,7 @@ spicliva(
 
 \item{timex_ref}{corresponding vector of dates in which probability distribution (with its parameters) is estimated}
 
-\item{distrib}{probability distribution function. See \code{\link{pel}}}
+\item{distrib}{probability distribution function. See \code{\link[lmomPi]{pel}}}
 
 \item{spi.scale}{integer value or \code{NA}. If it greater than 1 \code{x} is filtered with the sum of a generic element of \code{x} and the previous \code{spi.scale-1} ones (e.g. SPI-3,SPI-6, etc. ). Default is \code{NA} (no filtering) which is equivalent to \code{spi.scale=1}.}
 
@@ -47,7 +47,7 @@ spicliva(
 
 \item{spi.classes}{data frame with SPI/SPEI classes (see default csv file)}
 
-\item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}}}
+\item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link[lmomPi]{are.lmoms.valid}}}
 
 \item{...}{further arguments}
 }
@@ -87,5 +87,5 @@ spi3_cat <- spicliva(x=prec,timex=timeprec,spi.scale=3,add_cat=TRUE)
 
 }
 \seealso{
-\code{\link{spi.cdf}}
+\code{\link[lmomPi]{spi.cdf}}
 }

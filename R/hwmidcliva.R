@@ -21,7 +21,7 @@ NULL
 
 #' @export
 #'
-#' @seealso \code{\link{hwmid}}
+#' @seealso \code{\link[extRemes]{hwmid}}
 #' @examples
 #' 
 #' library(magrittr)

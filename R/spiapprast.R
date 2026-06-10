@@ -4,11 +4,11 @@ NULL
 #' 
 #' @param x a \code{SpatRast-Class} object
 #' @param timex corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month
-#' @param distrib probability distribution function. See \code{\link{pel}}
+#' @param distrib probability distribution function. See \code{\link[lmomPi]{pel}}
 #' @param fun argument passed to \code{\link{apprast}} Default is \code{\link{spicliva}}. See there further information.
 #' @param spi.classes data frame with SPI/SPEI classes (see default csv file) 
 #' @param add_cat logical, if \code{TRUE} SPI class categoriesare calculated for each month as attribute. 
-#' @param index,na.rm,... further arguments passed to \code{\link{apprast}}(then also \code{\link{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default). 
+#' @param index,na.rm,... further arguments passed to \code{\link{apprast}}(then also \code{\link[terra]{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default). 
 #' 
 #'
 #' @export
@@ -20,7 +20,7 @@ NULL
 #' @importFrom stringr str_detect
 #' @importFrom terra  classify coltab<- 
 #' 
-#' @seealso \code{\link{spicliva}},\code{\link{spi.cdf}}
+#' @seealso \code{\link{spicliva}},\code{\link[lmomPi]{spi.cdf}}
 #' 
 #' 
 #' @examples

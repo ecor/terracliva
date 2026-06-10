@@ -1,13 +1,11 @@
-citHeader("To cite the terracliva package in publications use:")
-
-citEntry(
-  entry = "Manual",
-  title = "terracliva: Climate Variability Tools",
-  author = c(
-    person("Emanuele", "Cordano", role = c("aut", "cre", "ctb")),
+bibentry(
+  bibtype = "Manual",
+  title   = "terracliva: Climate Variability Tools",
+  author  = c(
+    person("Emanuele", "Cordano", role = c("aut", "cre")),
     person("Luigi", "Cattaneo", role = "ctb")
   ),
-  year = "2026",
-  note = "R package, GitHub repository. License: EUPL >= 1.2",
-  url = "https://github.com/ecor/terracliva"
+  year    = "2026",
+  note    = "R package, GitHub repository. License: EUPL >= 1.2",
+  url     = "https://github.com/ecor/terracliva"
 )

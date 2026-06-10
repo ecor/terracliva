@@ -22,9 +22,9 @@ spiapprast(
 
 \item{timex}{corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month}
 
-\item{index, na.rm, ...}{further arguments passed to \code{\link{apprast}}(then also \code{\link{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default).}
+\item{index, na.rm, ...}{further arguments passed to \code{\link{apprast}}(then also \code{\link[terra]{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default).}
 
-\item{distrib}{probability distribution function. See \code{\link{pel}}}
+\item{distrib}{probability distribution function. See \code{\link[lmomPi]{pel}}}
 
 \item{fun}{argument passed to \code{\link{apprast}} Default is \code{\link{spicliva}}. See there further information.}
 
@@ -68,5 +68,5 @@ spi3r_cat <- spiapprast(x=dataset_monthly,spi.scale=3,add_cat=TRUE)
 
 }
 \seealso{
-\code{\link{spicliva}},\code{\link{spi.cdf}}
+\code{\link{spicliva}},\code{\link[lmomPi]{spi.cdf}}
 }

@@ -27,7 +27,7 @@ lmcliva(
 
 \item{timex}{corresponding vector of dates for \code{x}. It is a vector of dates of each first day of the month}
 
-\item{distrib}{probability distribution function. See \code{\link{pel}}}
+\item{distrib}{probability distribution function. See \code{\link[lmomPi]{pel}}}
 
 \item{rt}{return periods for deficit and excess}
 
@@ -45,7 +45,7 @@ lmcliva(
 
 \item{nmom}{see \code{\link[lmom]{samlmu}}}
 
-\item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}}}
+\item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link[lmomPi]{are.lmoms.valid}}}
 
 \item{...}{further arguments}
 }

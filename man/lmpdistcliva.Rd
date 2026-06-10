@@ -31,7 +31,7 @@ lmpdistcliva(
 
 \item{p}{exponent. Default is 2 (euclidean distance)}
 
-\item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link{are.lmoms.valid}}}
+\item{check_lmoms}{logical. If it is \code{TRUE}, L-moments are checked through \code{\link[lmomPi]{are.lmoms.valid}}}
 
 \item{add_t}{logical. If \code{TRUE} \code{t} is calculated. See default}
 

@@ -23,15 +23,15 @@ apprast(
 \arguments{
 \item{x}{a \code{SpatRast-Class} object}
 
-\item{index}{see \code{\link{app}}. It can be set equal to \code{"monthly"}}
+\item{index}{see \code{\link[terra]{app}}. It can be set equal to \code{"monthly"}}
 
-\item{fun}{function. Default is \code{\link{samlmu}}. See \code{\link{app}},\code{\link{tapp}}}
+\item{fun}{function. Default is \code{\link[lmom]{samlmu}}. See \code{\link[terra]{app}},\code{\link[terra]{tapp}}}
 
 \item{mm}{values of months selects for analyis with \code{fun}. Default is \code{1:12} , it is used in case \code{index=="monthly"}}
 
 \item{npart, npartx, nparty}{number of partitions along sides.}
 
-\item{filename, overwrite, na.rm, ...}{further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}. See also \code{\link{writeRaster}}.}
+\item{filename, overwrite, na.rm, ...}{further arguments for \code{fun}, \code{\link[terra]{app}} and \code{\link[terra]{tapp}}. See also \code{\link[terra]{writeRaster}}.}
 
 \item{tempdir}{working directory path for temporary files (e.g. partition tiles)}
 

@@ -4,8 +4,8 @@ NULL
 #' 
 #'
 #' @param x a \code{SpatRast-Class} object
-#' @param distrib probability distribution function. See \code{\link{pel}}
-#' @param index,fun,na.rm,... further arguments passed to \code{\link{apprast}}(then also \code{\link{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default). 
+#' @param distrib probability distribution function. See \code{\link[lmomPi]{pel}}
+#' @param index,fun,na.rm,... further arguments passed to \code{\link{apprast}}(then also \code{\link[terra]{writeRaster}}) and  \code{fun} (\code{\link{lmcliva}} if \code{fun==lmcliva} (default). 
 #' 
 #' @importFrom magrittr  %>% 
 #' @importFrom terra app nlyr tapp time

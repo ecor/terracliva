@@ -6,12 +6,12 @@ NULL
 #' @param x time series a \code{SpatRast-Class} object (e.g. daily maximum or minimum  temperature) 
 #' @param timex corresponding vector of dates for \code{x}
 #' @param index,fun further arguments passed to \code{\link{apprast}}
-#' @param start_month,... further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}, \code{\link{apprast}}(then also \code{\link{writeRaster}})
+#' @param start_month,... further arguments for \code{\link{hwmidcliva}} or \code{\link{cwmidcliva}}, \code{\link{apprast}}(then also \code{\link[terra]{writeRaster}})
 #'
 #' @importFrom terra project
 #' @export
 #'
-#' @seealso \code{\link{hwmidcliva}},\code{\link{cwmidcliva}},\code{\link{hwmid}}
+#' @seealso \code{\link{hwmidcliva}},\code{\link{cwmidcliva}},\code{\link[extRemes]{hwmid}}
 #' @examples
 #' 
 #' library(magrittr)

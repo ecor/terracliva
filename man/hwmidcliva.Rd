@@ -109,5 +109,5 @@ Urban Climate,Volume 27,2019,Pages 388-402, ISSN 2212-0955,
 (\url{https://www.sciencedirect.com/science/article/pii/S2212095518302700})
 }
 \seealso{
-\code{\link{hwmid}}
+\code{\link[extRemes]{hwmid}}
 }

@@ -4,13 +4,13 @@ NULL
 #' 
 #'
 #' @param x a \code{SpatRast-Class} object
-#' @param fun function. Default is \code{\link{samlmu}}. See \code{\link{app}},\code{\link{tapp}}
-#' @param index see \code{\link{app}}. It can be set equal to \code{"monthly"}
+#' @param fun function. Default is \code{\link[lmom]{samlmu}}. See \code{\link[terra]{app}},\code{\link[terra]{tapp}}
+#' @param index see \code{\link[terra]{app}}. It can be set equal to \code{"monthly"}
 #' @param mm values of months selects for analyis with \code{fun}. Default is \code{1:12} , it is used in case \code{index=="monthly"} 
 #' @param npart,npartx,nparty number of partitions along sides.
 #' @param tempdir working directory path for temporary files (e.g. partition tiles)
 #' @param tile_formatter formatter used for temporary files (e.g. partition tiles)  
-#' @param filename,overwrite,na.rm,... further arguments for \code{fun}, \code{\link{app}} and \code{\link{tapp}}. See also \code{\link{writeRaster}}.
+#' @param filename,overwrite,na.rm,... further arguments for \code{fun}, \code{\link[terra]{app}} and \code{\link[terra]{tapp}}. See also \code{\link[terra]{writeRaster}}.
 #' 
 #' 
 #' @importFrom terra ext crop mosaic sprc rast sds

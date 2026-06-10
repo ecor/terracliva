@@ -22,7 +22,7 @@ dryspellapprast(
 
 \item{na.rm}{logical. Remove or not NA values. See \code{\link{dryspellcliva}},\code{\link{max}},\code{\link{q25}},\code{\link{q75}}}
 
-\item{...}{further arguments for \code{\link{dryspellcliva}} , , \code{\link{apprast}}(then also \code{\link{writeRaster}})}
+\item{...}{further arguments for \code{\link{dryspellcliva}} , , \code{\link{apprast}}(then also \code{\link[terra]{writeRaster}})}
 }
 \description{
 SPI/SPEI Analysis in Spatial Gridded Coverage
