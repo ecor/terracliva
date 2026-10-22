@@ -58,32 +58,44 @@ regress <- function(x,time=NULL,signif=0.1,na.rm=0.3,frequency=NA,formatter="M%0
     return(out)
   }
   
+  # print(na.rm)
+  # print(length(x))
+  # xx <<- x
+  if (is.numeric(na.rm)) na.rm <- length(which(is.na(x)))>na.rm*length(x) ## na.rm is FALSE in case no-NAs are lower then the threshold
   
-  if (is.numeric(na.rm)) na.rm <- length(is.na(x))<=na.rm*length(x)
-  
-  
+  # print(na.rm)
   if (is.null(time)) time=(1:length(x))-1
   
+ 
   
   #time=(1:length(x))-1
-  ## REGRESS UPDATE
-  if (na.rm) {
-    x <- x[!is.na(x)]
-    time <- time[!is.na(x)]
-  }
-  ##
+
   if (all(is.na(x))) {
     x <- array(-0.0001,length(x))
+    time=(1:length(x))-1
     condNA <- TRUE
     condNA1 <- TRUE
-  } else if(any(is.na(x))){
+  } else if(any(is.na(na_trim(x)))){
+    #x <- x[!is.na(x)]
+    #time <- time[!is.na(x)]
     condNA <- FALSE
     condNA1 <- TRUE
   } else {  
     condNA <- FALSE
     condNA1 <- FALSE
   }	
-  
+ 
+  ##
+  # ## REGRESS UPDATE
+  if (na.rm) {
+     iii <- which(!is.na(x))
+     x <- x[iii]
+     time <- time[iii]
+   }
+  # xx <<- x
+  # tt <<- time
+  # str(time)
+  # str(x)
   out <- (lm(x ~ time))
   
   ## Analysis 
@@ -120,7 +132,7 @@ regress <- function(x,time=NULL,signif=0.1,na.rm=0.3,frequency=NA,formatter="M%0
     
   } else { 
     
-    sens <- sens.slope(x,conf.level=1-signif)
+    sens <- sens.slope(na_trim(x),conf.level=1-signif)
     
     senslope=sens$estimate
     pvalue_mk <- sens$p.value
